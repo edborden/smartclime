@@ -1,7 +1,6 @@
 # Smartclime
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Dashboard application for Smartclime devices.
 
 ## Prerequisites
 
@@ -25,10 +24,6 @@ You will need the following things properly installed on your computer.
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
 ### Running Tests
 
 * `ember test`
@@ -39,9 +34,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 * `ember build` (development)
 * `ember build --environment production` (production)
 
-### Deploying
+## Deploying
 
-Specify what it takes to deploy your app.
+### Hosting
+
+Static files are hosted on [Firebase](http://firebase.google.com). Firebase configuration is contained in `firebase.json`.
+
+### Triggering Deployments
+
+Continuous Integration (CI) is managed via [CircleCI](http://circleci.com). Updates to this Github repository will trigger a CircleCI build automatically. CircleCI configuration is contained in `circle.yml`. This configuration depends utilizes [Firebase CLI](https://github.com/firebase/firebase-tools) directly, which depends on a local secret token, `$FIREBASE_TOKEN`. This token can be obtained using Firebase CLI locally with the command `firebase login:ci`.
 
 ## Further Reading / Useful Links
 
