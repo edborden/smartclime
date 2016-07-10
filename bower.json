@@ -4,6 +4,7 @@
     "ember": "~2.7.0-beta.3",
     "ember-cli-shims": "0.1.1",
     "ember-qunit-notifications": "0.1.0",
-    "firebase": "^3.0.0"
+    "firebase": "^3.0.0",
+    "Materialize": "materialize#~0.97.5"
   }
 }

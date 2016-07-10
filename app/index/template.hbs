@@ -1,0 +1,17 @@
+<div class="protest">
+  <div class="self-center index-box center-align">
+    <p>
+      <img src='assets/images/logo.png'>
+    </p>
+    <div class="divider"></div>
+    <p>
+      Sign up to be notified when we launch!
+    </p>
+    <div class="email-signup-form">
+      {{input type="text" value=email class="input-item" placeholder="Email address"}}
+      <a class="btn-floating btn-large {{unless isValid 'disabled'}}" {{action "subscribe"}}>
+        <i class="material-icons">mail</i>
+      </a>
+    </div>
+  </div>
+</div>
