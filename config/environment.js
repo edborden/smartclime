@@ -13,6 +13,13 @@ module.exports = function(environment) {
       }
     },
 
+    firebase: {
+      apiKey: "AIzaSyCxemskTsw23mf3_7sArXh48guU-vnDkzw",
+      authDomain: "smartclime-70e4f.firebaseapp.com",
+      databaseURL: "https://smartclime-70e4f.firebaseio.com",
+      storageBucket: "smartclime-70e4f.appspot.com"
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
