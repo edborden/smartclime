@@ -13,11 +13,5 @@ module.exports = function(defaults) {
   var pickFiles = require('broccoli-funnel');
   var mergeTrees = require('broccoli-merge-trees');
 
-  // Materialize
-  var materializeFonts = pickFiles('bower_components/Materialize/fonts/roboto', {
-    destDir: '/font/roboto'
-  });
-  app.import('bower_components/Materialize/dist/js/materialize.js');
-
-  return mergeTrees([ app.toTree(), materializeFonts ]);
+  return mergeTrees([ app.toTree() ]);
 };

@@ -44,6 +44,10 @@ Static files are hosted on [Firebase](http://firebase.google.com). Firebase conf
 
 Continuous Integration (CI) is managed via [CircleCI](http://circleci.com). Updates to this Github repository will trigger a CircleCI build automatically. CircleCI configuration is contained in `circle.yml`. This configuration depends utilizes [Firebase CLI](https://github.com/firebase/firebase-tools) directly, which depends on a local secret token, `$FIREBASE_TOKEN`. This token can be obtained using Firebase CLI locally with the command `firebase login:ci`.
 
+* Does a fresh build
+* Runs tests
+* Deploys to Firebase
+
 ## Further Reading / Useful Links
 
 * [ember.js](http://emberjs.com/)

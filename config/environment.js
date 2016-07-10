@@ -6,23 +6,13 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
-    EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      }
-    },
-
+    EmberENV: { FEATURES: {} },
+    APP: {},
     firebase: {
       apiKey: "AIzaSyCxemskTsw23mf3_7sArXh48guU-vnDkzw",
       authDomain: "smartclime-70e4f.firebaseapp.com",
       databaseURL: "https://smartclime-70e4f.firebaseio.com",
       storageBucket: "smartclime-70e4f.appspot.com"
-    },
-
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
     }
   };
 
