@@ -1,0 +1,25 @@
+<header>
+  {{#unless noNav}}
+    {{#nav-bar image='assets/images/logo-white.png'}}       
+      {{#nav-link link='me' icon='person' pull='left'}}
+        {{me.displayName}}
+      {{/nav-link}}
+    {{/nav-bar}}
+  {{/unless}}
+</header>
+
+<main>
+  {{#unless noContainer}}
+    <div class='container'>
+      {{outlet}}
+    </div>
+  {{else}}
+    {{outlet}}
+  {{/unless}}
+</main>
+
+{{#unless noFooter}}
+  {{footer-bar}}
+{{/unless}}
+
+{{ember-notify messageStyle='bootstrap'}}

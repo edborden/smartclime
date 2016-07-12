@@ -1,0 +1,18 @@
+<div class='nav-wrapper container'>
+  {{#link-to 'index' class='brand-logo'}}
+    {{#if brand}}
+      {{brand}}
+    {{else}}
+      <img class="logo" src={{image}}>
+    {{/if}}
+  {{/link-to}}
+  <a href="#" data-activates="mobile-menu" class="button-collapse">
+    <i class="material-icons">menu</i>
+  </a>
+  <ul class='right hide-on-med-and-down'>
+    {{yield}}
+  </ul>
+  <ul id='mobile-menu' class='side-nav'>
+    {{yield}}
+  </ul>
+</div>

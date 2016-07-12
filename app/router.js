@@ -9,6 +9,7 @@ const router = Router.extend({
 });
 
 router.map(function() {
+  this.authenticatedRoute('index', { path: '/' });
   this.route('login');
   this.authenticatedRoute('me');
 });
