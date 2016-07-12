@@ -44,6 +44,7 @@
     "ember-materialize-shim": "0.1.9",
     "ember-resolver": "^2.0.3",
     "emberfire": "2.0.1",
-    "loader.js": "^4.0.1"
+    "loader.js": "^4.0.1",
+    "torii": "0.8.0"
   }
 }

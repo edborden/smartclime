@@ -13,6 +13,9 @@ module.exports = function(environment) {
       authDomain: "smartclime-70e4f.firebaseapp.com",
       databaseURL: "https://smartclime-70e4f.firebaseio.com",
       storageBucket: "smartclime-70e4f.appspot.com"
+    },
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 
