@@ -18,7 +18,6 @@ export default Route.extend({
     async signIn(provider) {
       let session = this.get('session');
       await session.open('firebase', { provider });
-      console.log(session.get('currentUser'));
       this.send('authenticate');
     }
 

@@ -3,7 +3,7 @@ const {
   isEmpty,
   inject: { service },
   Route,
-  RSVP: { all }
+  RSVP
 } = Ember;
 
 export default Route.extend({
@@ -43,7 +43,7 @@ export default Route.extend({
     let store = this.get('store');
     let session = this.get('session');
     let currentUser = session.get('currentUser');
-    return new Ember.RSVP.Promise((resolve) => {
+    return new RSVP.Promise((resolve) => {
       store.query('user', {
         orderBy: 'uid',
         equalTo: currentUser.uid
@@ -67,7 +67,7 @@ export default Route.extend({
   _createUserWithGoogle(currentUser) {
     let store = this.get('store');
     let { email, displayName, uid, photoURL } = currentUser;
-    return new Ember.RSVP.Promise((resolve) => {
+    return new RSVP.Promise((resolve) => {
       let newUser = store.createRecord('user', {
         email, displayName, uid, photoURL
       });
