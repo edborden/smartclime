@@ -9,8 +9,7 @@ module.exports = function(defaults) {
       optional: ['es7.decorators']
     },
     inlineContent: {
-      favicon: { content: "<link rel='icon' href='/assets/images/favicon.ico'>" },
-      materializeIcons: {content: "<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>" }
+      favicon: { content: "<link rel='icon' href='/assets/images/favicon.ico'>" }
     }
   });
 
@@ -22,5 +21,10 @@ module.exports = function(defaults) {
     destDir: '/fonts/roboto'
   });
 
-  return mergeTrees([ app.toTree(), materializeFonts ]);
+  // Materialize Icons
+  var materializeIcons = pickFiles('bower_components/mdi/fonts', {
+    destDir: '/fonts/mdi'
+  });  
+
+  return mergeTrees([ app.toTree(), materializeFonts, materializeIcons ]);
 };
