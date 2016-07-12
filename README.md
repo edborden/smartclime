@@ -23,22 +23,24 @@ You will need the following things properly installed on your computer.
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+* `ember build`
 
 ### Running Tests
 
 * `ember test`
 * `ember test --server`
 
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
 ## Deploying
 
 ### Hosting
 
 Static files are hosted on [Firebase](http://firebase.google.com). Firebase configuration is contained in `firebase.json`.
+
+### Environments
+
+* Staging: branch "staging" is linked to [smartclime-staging](https://smartclime-staging.firebaseapp.com/) on Firebase.
+
+* Production: branch "master" is linked to [smartclime](https://smartclime-70e4f.firebaseapp.com/) on Firebase.
 
 ### Triggering Deployments
 
