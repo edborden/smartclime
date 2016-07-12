@@ -1,0 +1,16 @@
+import DS from 'ember-data';
+
+const {
+  Model,
+  attr
+} = DS;
+
+export default Model.extend({
+
+  // attributes
+  displayName: attr('string'),
+  email: attr('string'),
+  photoURL: attr('string'),
+  uid: attr('string')
+
+});
