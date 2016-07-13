@@ -21,15 +21,18 @@ export default Route.extend({
   // actions
   actions: {
 
-    signOut() {
+    async signOut() {
+      await this.transitionTo('login');
+      this._removeMe();
+      // Need to properly manage unloading all records here
+      // https://github.com/firebase/emberfire/issues/400
       this.get('session').close();
-      this.transitionTo('index');
     },
 
     authenticate() {
       this._setupMeService()
       .then(() => {
-        this.transitionTo('me');
+        this.transitionTo('index');
       });
     },
 
@@ -62,6 +65,10 @@ export default Route.extend({
         }
       });
     });
+  },
+
+  _removeMe() {
+    this.get('meService').set('model', null);    
   },
 
   _createUserWithGoogle(currentUser) {

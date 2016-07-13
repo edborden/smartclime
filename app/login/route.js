@@ -5,13 +5,6 @@ const {
 
 export default Route.extend({
 
-  // events
-  beforeModel() {
-    if (this.get('session').get('isAuthenticated')) {
-      this.transitionTo('me');
-    }
-  },
-
   // actions
   actions: {
 
