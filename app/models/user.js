@@ -2,7 +2,8 @@ import DS from 'ember-data';
 
 const {
   Model,
-  attr
+  attr,
+  belongsTo
 } = DS;
 
 export default Model.extend({
@@ -11,6 +12,12 @@ export default Model.extend({
   displayName: attr('string'),
   email: attr('string'),
   photoURL: attr('string'),
-  uid: attr('string')
+  uid: attr('string'),
+
+  // associations
+  organization: belongsTo('organization'),
+
+  // computed
+  admin: true // will compute based on org
 
 });

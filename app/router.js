@@ -12,6 +12,7 @@ router.map(function() {
   this.authenticatedRoute('index', { path: '/' });
   this.route('login');
   this.authenticatedRoute('me');
+  this.authenticatedRoute('admin');
 });
 
 export default router;

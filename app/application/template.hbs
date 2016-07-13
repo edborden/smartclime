@@ -1,7 +1,12 @@
 <header>
   {{#unless noNav}}
-    {{#nav-bar image='assets/images/logo-white.png'}}       
-      {{#nav-link link='me' icon='account'}}
+    {{#nav-bar image='assets/images/logo-white.png'}}
+      {{#if me.admin}}
+        {{#nav-link link='admin' icon='shield'}}
+          Admin
+        {{/nav-link}}
+      {{/if}}
+      {{#nav-link link='me' icon='account-settings-variant'}}
         {{me.displayName}}
       {{/nav-link}}
     {{/nav-bar}}
