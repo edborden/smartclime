@@ -1,0 +1,18 @@
+{{#md-tabs}}
+  {{#md-tab link='me'}}
+    Profile
+  {{/md-tab}}
+  {{#md-tab action='signOut'}}
+    Logout
+  {{/md-tab}}
+{{/md-tabs}}
+
+<p>Name: {{me.displayName}}</p>
+<p>Email: {{me.email}}</p>
+
+<h5>Organization</h5>
+{{#if me.organization}}
+  {{me.organization.name}}
+{{else}}
+  None
+{{/if}}

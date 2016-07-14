@@ -1,0 +1,9 @@
+{{#if link}}
+  {{#link-to link}}
+    {{yield}}
+  {{/link-to}}
+{{else}}
+  <a href="#">
+    {{yield}}
+  </a>
+{{/if}}

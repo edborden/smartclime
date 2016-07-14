@@ -12,7 +12,6 @@ export default Model.extend({
   displayName: attr('string'),
   email: attr('string'),
   photoURL: attr('string'),
-  uid: attr('string'),
 
   // associations
   organization: belongsTo('organization'),

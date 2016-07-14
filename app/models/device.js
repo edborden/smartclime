@@ -11,6 +11,7 @@ export default Model.extend({
   // attributes
   uid: attr('string'),
   name: attr('string'),
+  hardwareId: attr('string'),
 
   // associations
   organization: belongsTo('organization')
