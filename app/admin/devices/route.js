@@ -7,7 +7,10 @@ const {
 export default Route.extend({
 
   model() {
-    return this.get('store').findAll('organization');
+    return this.get('store').query('device', {
+      orderBy: 'isNew',
+      equalTo: true
+    });
   }
 
 });

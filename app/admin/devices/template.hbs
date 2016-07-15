@@ -1,1 +1,9 @@
-<a class="btn-floating btn-large waves-effect waves-light red">{{i-mdi icon="plus"}}</a>
+{{#if model}}
+  <ul class="collection">
+    {{#each model as |device|}}
+      <li class="collection-item"><div>{{device.hardwareId}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div></li>
+    {{/each}}
+  </ul>
+{{else}}
+  No unassigned devices. New devices will appear here as they come online.
+{{/if}}

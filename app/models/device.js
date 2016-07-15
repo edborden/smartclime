@@ -12,6 +12,7 @@ export default Model.extend({
   uid: attr('string'),
   name: attr('string'),
   hardwareId: attr('string'),
+  isNew: attr('boolean'),
 
   // associations
   organization: belongsTo('organization')
