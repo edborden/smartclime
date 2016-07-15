@@ -31,7 +31,7 @@ export default Route.extend({
 
     async authenticate() {
       await this._setupMeService();
-      this.transitionTo('index');
+      await this.transitionTo('index');
     },
 
     accessDenied() {
@@ -40,16 +40,29 @@ export default Route.extend({
   },
 
   // helpers
-  _setupMeService() {
-    let store = this.get('store');
+  async _setupMeService() {
     let session = this.get('session');
     let currentUser = session.get('currentUser');
+    await this._checkIfUserExists(currentUser.uid);
+    let users = this.get('foundUsers');
+    if (isEmpty(users)) {
+      let newUser = this._createUserWithGoogle(currentUser);
+      await this._setCurrentUserOnMe(newUser);
+    } else {
+      let user = users.get('firstObject');
+      this._setCurrentUserOnMe(user);
+    }
+  },
+
+  _checkIfUserExists(uid) {
+    let store = this.get('store');
     return new RSVP.Promise((resolve) => {
       store.query('user', {
         orderBy: 'uid',
-        equalTo: currentUser.uid
+        equalTo: uid
       })
       .then((users) => {
+        this.set('foundUsers', users);
         resolve();
       });
     });
@@ -59,13 +72,13 @@ export default Route.extend({
     this.get('meService').set('model', null);    
   },
 
-  _createUserWithGoogle(currentUser) {
+  async _createUserWithGoogle(currentUser) {
     let store = this.get('store');
     let { email, displayName, uid, photoURL } = currentUser;
     let newUser = store.createRecord('user', {
       email, displayName, uid, photoURL
     });
-    return newUser.save();
+    await newUser.save();
   },
 
   _setCurrentUserOnMe(currentUser) {

@@ -70,7 +70,7 @@ describe('Acceptance: /auth', function() {
       signInWithPopupStub.returns(Ember.RSVP.Promise.resolve(authData));
     });
 
-    it('creates a session when the auth method returns data', function () {
+    it('logs in and redirects to index', function () {
       visit('/login');
 
       click('button');
