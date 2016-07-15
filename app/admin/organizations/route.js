@@ -2,7 +2,7 @@ import Ember from 'ember';
 import HasMe from 'smartclime/mixins/has-me';
 
 const {
-  Routed
+  Route
 } = Ember;
 
 export default Route.extend(HasMe, {

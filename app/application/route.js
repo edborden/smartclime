@@ -29,11 +29,9 @@ export default Route.extend({
       this.get('session').close();
     },
 
-    authenticate() {
-      this._setupMeService()
-      .then(() => {
-        this.transitionTo('index');
-      });
+    async authenticate() {
+      await this._setupMeService();
+      this.transitionTo('index');
     },
 
     accessDenied() {
@@ -52,17 +50,7 @@ export default Route.extend({
         equalTo: currentUser.uid
       })
       .then((users) => {
-        if (isEmpty(users)) {
-          this._createUserWithGoogle(currentUser)
-          .then((result) => {
-            this._setCurrentUserOnMe(result);
-            resolve();
-          });
-        } else {
-          let user = users.get('firstObject');
-          this._setCurrentUserOnMe(user);
-          resolve();
-        }
+        resolve();
       });
     });
   },
@@ -74,15 +62,10 @@ export default Route.extend({
   _createUserWithGoogle(currentUser) {
     let store = this.get('store');
     let { email, displayName, uid, photoURL } = currentUser;
-    return new RSVP.Promise((resolve) => {
-      let newUser = store.createRecord('user', {
-        email, displayName, uid, photoURL
-      });
-      newUser.save()
-      .then(function() {
-        resolve(newUser);
-      });
+    let newUser = store.createRecord('user', {
+      email, displayName, uid, photoURL
     });
+    return newUser.save();
   },
 
   _setCurrentUserOnMe(currentUser) {
