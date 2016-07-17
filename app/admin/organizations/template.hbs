@@ -1,9 +1,23 @@
 {{organization-adder}}
 
-{{#each model as |organization|}}
-  <ul class="collection">
-    <li class="collection-item">
-      <div>{{organization.name}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div>
-    </li>
-  </ul>
-{{/each}}
+{{#md-collapsible}}
+  {{#each model as |organization|}}
+    {{#collapsible-item title=organization.name}}
+      <div class="row">
+        <div class="col m9">
+          <p>Stuff here</p>
+        </div>
+        <div class="col m3">
+          <div class="row">
+            <div class="col s6">
+              <a class='btn-floating waves-effect waves-light blue'>{{i-mdi icon="check"}}</a>
+            </div>
+            <div class="col s6">
+              6
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/collapsible-item}}
+  {{/each}}
+{{/md-collapsible}}
