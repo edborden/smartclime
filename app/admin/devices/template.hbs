@@ -1,9 +1,7 @@
-{{#if model}}
-  <ul class="collection">
-    {{#each model as |device|}}
-      {{device-adder device=device}}
-    {{/each}}
-  </ul>
+<ul class="collection">
+{{#each model as |device|}}
+  {{device-adder device=device}}
 {{else}}
   No unassigned devices. New devices will appear here as they come online.
-{{/if}}
+{{/each}}
+</ul>

@@ -14,6 +14,6 @@
         {{/x-option}}
       {{/each}}
     {{/x-select}}
-    <p>{{save-button isValid=isValid}}</p>
+    <p>{{md-btn action='save' disabled=isInvalid icon='check'}}</p>
   {{/modal-dialog}}
 {{/if}}

@@ -4,18 +4,22 @@
   {{#each model as |organization|}}
     {{#collapsible-item title=organization.name}}
       <div class="row">
-        <div class="col m9">
-          <p>Stuff here</p>
-        </div>
         <div class="col m3">
           <div class="row">
             <div class="col s6">
-              <a class='btn-floating waves-effect waves-light blue'>{{i-mdi icon="check"}}</a>
+              {{md-btn}}
             </div>
             <div class="col s6">
-              6
+              {{md-btn icon='chart-pie'}}
             </div>
           </div>
+        </div>
+        <div class="col m9">
+          {{#each organization.users as |user|}}
+            <p>{{user.email}}</p>
+          {{else}}
+            No users in this organization yet.
+          {{/each}}
         </div>
       </div>
     {{/collapsible-item}}

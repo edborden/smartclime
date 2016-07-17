@@ -1,16 +1,17 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
+import MdBtn from 'smartclime/components/md-btn/component';
 
 const {
   Component,
   inject: { service }
 } = Ember;
 
-export default Component.extend(EmberValidations, {
+export default MdBtn.extend(EmberValidations, {
 
   // attributes
-  tagName: 'a',
-  classNames: [ 'btn-floating', 'btn-large', 'waves-effect', 'waves-light', 'red' ],
+  large: true,
+  color: 'red',
   modal: false,
   name: null,
 

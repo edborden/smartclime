@@ -8,6 +8,7 @@ export default Component.extend({
 
   // attributes
   tagName: 'ul',
+  classNames: [ 'collapsible' ],
 
   // events
   didInsertElement() {
