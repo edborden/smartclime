@@ -6,6 +6,6 @@
                   translucentOverlay=true}}
     <p>{{device.hardwareId}}</p>
     {{md-input placeholder="Name" value=name}}
-    <p>{{save-button isValid=isValid}}</p>
+    <p>{{md-btn action='save' icon='check' disabled=isInvalid}}</p>
   {{/modal-dialog}}
 {{/if}}
