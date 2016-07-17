@@ -9,10 +9,10 @@ const {
 export default MdBtn.extend(EmberValidations, {
 
   // attributes
-  large: true,
-  color: 'red',
   modal: false,
-  name: null,
+  email: null,
+  text: 'Add User',
+  organization: null,
 
   // services
   store: service(),
@@ -28,10 +28,14 @@ export default MdBtn.extend(EmberValidations, {
       this.set('modal', false);
     },
     async save() {
-      let name = this.get('name');
-      let organization = this.get('store').createRecord('organization', {
-        name
+      let email = this.get('email');
+      let organization = this.get('organization')
+      let user = this.get('store').createRecord('user', {
+        email,
+        organization
       });
+      await user.save();
+      organization.get('users').pushObject(user);
       await organization.save();
       this.send('toggleModal');
     }
@@ -39,8 +43,11 @@ export default MdBtn.extend(EmberValidations, {
 
   // validations
   validations: {
-    name: {
-      presence: true
+    email: {
+      format: {
+        with: /@/,
+        message: "Doesn't look like a valid email. Please try again."
+      }
     }
   }
 

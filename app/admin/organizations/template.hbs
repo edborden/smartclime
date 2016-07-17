@@ -4,17 +4,17 @@
   {{#each model as |organization|}}
     {{#collapsible-item title=organization.name}}
       <div class="row">
-        <div class="col m3">
+        <div class="col m6">
           <div class="row">
             <div class="col s6">
-              {{md-btn}}
+              {{user-adder organization=organization}}
             </div>
             <div class="col s6">
               {{md-btn icon='chart-pie'}}
             </div>
           </div>
         </div>
-        <div class="col m9">
+        <div class="col m6">
           {{#each organization.users as |user|}}
             <p>{{user.email}}</p>
           {{else}}
