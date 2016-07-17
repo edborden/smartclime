@@ -1,7 +1,7 @@
 {{#if model}}
   <ul class="collection">
     {{#each model as |device|}}
-      <li class="collection-item"><div>{{device.hardwareId}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div></li>
+      {{device-adder device=device}}
     {{/each}}
   </ul>
 {{else}}
