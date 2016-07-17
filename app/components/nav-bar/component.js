@@ -6,6 +6,7 @@ export default Component.extend({
   brand: null,
   image: null,
   tagName: 'nav',
+  classNames: [ 'nav-bar' ],
 
   didInsertElement() {
     this._super(...arguments);
