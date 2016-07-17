@@ -1,5 +1,9 @@
-<a class="btn-floating btn-large waves-effect waves-light red">{{i-mdi icon="plus"}}</a>
+{{organization-adder}}
 
 {{#each model as |organization|}}
-  <p>{{organization.name}}</p>
+  <ul class="collection">
+    <li class="collection-item">
+      <div>{{organization.name}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div>
+    </li>
+  </ul>
 {{/each}}
