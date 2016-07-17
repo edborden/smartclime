@@ -44,6 +44,8 @@ export default Component.extend(EmberValidations, {
       device.set('organization', organization);
       device.set('isNew', false);
       await device.save();
+      organization.get('devices').pushObject(device);
+      await organization.save();
     }
   },
 
