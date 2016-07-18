@@ -10,13 +10,23 @@
               {{user-adder organization=organization}}
             </div>
             <div class="col s6">
-              {{md-btn icon='chart-pie'}}
+              {{#link-to 'dashboard' organization}}
+                {{md-btn icon='chart-pie'}}
+              {{/link-to}}
             </div>
           </div>
         </div>
         <div class="col m6">
           {{#each organization.users as |user|}}
-            <p>{{user.email}}</p>
+            {{#if user.displayName}}
+              <div>
+                {{user.displayName}}: {{user.email}}
+              </div>
+            {{else}}
+              <div class="grey-text">
+                {{user.email}} (not logged in yet)
+              </div>
+            {{/if}}
           {{else}}
             No users in this organization yet.
           {{/each}}
