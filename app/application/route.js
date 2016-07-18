@@ -42,24 +42,31 @@ export default Route.extend({
   // helpers
   async _setupMeService() {
     let session = this.get('session');
-    let currentUser = session.get('currentUser');
-    await this._checkIfUserExists(currentUser.uid);
+    let authUser = session.get('currentUser');
+    await this._checkIfUserExists(authUser.email);
     let users = this.get('foundUsers');
     if (isEmpty(users)) {
       let newUser = this._createUserWithGoogle(currentUser);
       await this._setCurrentUserOnMe(newUser);
     } else {
-      let user = users.get('firstObject');
-      this._setCurrentUserOnMe(user);
+      let existingUser = users.get('firstObject');
+      await this._fillInInfo(authUser, existingUser);
+      this._setCurrentUserOnMe(existingUser);
     }
   },
 
-  _checkIfUserExists(uid) {
+  async _fillInInfo(authUser, existingUser) {
+    let { uid, displayName, photoURL } = authUser;
+    existingUser.setProperties({ uid, displayName, photoURL });
+    existingUser.save();
+  },
+
+  _checkIfUserExists(email) {
     let store = this.get('store');
     return new RSVP.Promise((resolve) => {
       store.query('user', {
-        orderBy: 'uid',
-        equalTo: uid
+        orderBy: 'email',
+        equalTo: email
       })
       .then((users) => {
         this.set('foundUsers', users);
