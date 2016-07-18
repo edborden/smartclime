@@ -16,6 +16,8 @@ router.map(function() {
     this.authenticatedRoute('devices');
     this.authenticatedRoute('organizations');
   });
+  this.authenticatedRoute('dashboard', { path: 'dashboard/:organization_id' });
+  this.authenticatedRoute('device', { path: 'device/:device_id' });
 });
 
 export default router;
