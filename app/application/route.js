@@ -62,7 +62,9 @@ export default Route.extend(CheckUser, {
   },
 
   _removeMe() {
-    this.get('meService').set('model', null);    
+    let meService = this.get('meService');
+    meService.get('model').unload();
+    meService.set('model', null);    
   },
 
   async _createUserWithGoogle(currentUser) {
