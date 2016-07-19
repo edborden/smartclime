@@ -3,7 +3,7 @@
     ".read": "auth != null",
     ".write": "auth != null",
     "users": {
-      ".indexOn": "uid"
+      ".indexOn": "email"
     }
   }
 }

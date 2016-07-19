@@ -8,7 +8,7 @@ export default Route.extend({
   // actions
   actions: {
 
-    async signIn(provider) {
+    async signIn(provider='google') {
       let session = this.get('session');
       await session.open('firebase', { provider });
       this.send('authenticate');

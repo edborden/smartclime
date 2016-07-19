@@ -2,11 +2,11 @@ import Ember from 'ember';
 const {
   isEmpty,
   inject: { service },
-  Route,
-  RSVP
+  Route
 } = Ember;
+import CheckUser from 'smartclime/mixins/check-user';
 
-export default Route.extend({
+export default Route.extend(CheckUser, {
 
   // services
   meService: service('me'),
@@ -46,7 +46,7 @@ export default Route.extend({
     await this._checkIfUserExists(authUser.email);
     let users = this.get('foundUsers');
     if (isEmpty(users)) {
-      let newUser = this._createUserWithGoogle(currentUser);
+      let newUser = this._createUserWithGoogle(authUser);
       await this._setCurrentUserOnMe(newUser);
     } else {
       let existingUser = users.get('firstObject');
@@ -59,20 +59,6 @@ export default Route.extend({
     let { uid, displayName, photoURL } = authUser;
     existingUser.setProperties({ uid, displayName, photoURL });
     existingUser.save();
-  },
-
-  _checkIfUserExists(email) {
-    let store = this.get('store');
-    return new RSVP.Promise((resolve) => {
-      store.query('user', {
-        orderBy: 'email',
-        equalTo: email
-      })
-      .then((users) => {
-        this.set('foundUsers', users);
-        resolve();
-      });
-    });
   },
 
   _removeMe() {
