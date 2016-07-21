@@ -1,0 +1,11 @@
+{{i-mdi icon="plus"}}
+
+{{#if modal}}
+  {{#modal-dialog close="toggleModal"
+                  targetAttachment="center"
+                  translucentOverlay=true}}
+    <p>{{device.hardwareId}}</p>
+    {{md-input placeholder="Name" value=name}}
+    <p>{{md-btn action='save' icon='check' disabled=isInvalid}}</p>
+  {{/modal-dialog}}
+{{/if}}

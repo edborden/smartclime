@@ -12,6 +12,13 @@ router.map(function() {
   this.authenticatedRoute('index', { path: '/' });
   this.route('login');
   this.authenticatedRoute('me');
+  this.authenticatedRoute('admin', function() {
+    this.authenticatedRoute('devices');
+    this.authenticatedRoute('organizations');
+  });
+  this.authenticatedRoute('dashboard', { path: 'dashboard/:organization_id' });
+  this.authenticatedRoute('device', { path: 'device/:device_id' });
+  this.authenticatedRoute('orphan');
 });
 
 export default router;

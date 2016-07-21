@@ -17,3 +17,9 @@ deployment:
     commands:
       - ember build --environment=production
       - firebase deploy --token $FIREBASE_TOKEN
+  staging:
+    branch: staging
+    commands:
+      - ember build --environment=staging
+      - firebase use smartclime-staging
+      - firebase deploy --token $FIREBASE_TOKEN

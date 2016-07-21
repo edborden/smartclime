@@ -5,17 +5,10 @@ const {
 
 export default Route.extend({
 
-  // events
-  beforeModel() {
-    if (this.get('session').get('isAuthenticated')) {
-      this.transitionTo('me');
-    }
-  },
-
   // actions
   actions: {
 
-    async signIn(provider) {
+    async signIn(provider='google') {
       let session = this.get('session');
       await session.open('firebase', { provider });
       this.send('authenticate');

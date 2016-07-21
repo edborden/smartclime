@@ -1,0 +1,19 @@
+<div>{{device.hardwareId}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div>
+
+{{#if modal}}
+  {{#modal-dialog close="toggleModal"
+                  targetAttachment="center"
+                  translucentOverlay=true}}
+    <p>{{device.hardwareId}}</p>
+    {{md-input placeholder="Name" value=deviceName}}
+    {{#x-select value=deviceOrganization classNames="browser-default"}}
+      <option>Select organization</option>
+      {{#each organizations as |organization|}}
+        {{#x-option value=organization}}
+          {{organization.name}}
+        {{/x-option}}
+      {{/each}}
+    {{/x-select}}
+    <p>{{md-btn action='save' disabled=isInvalid icon='check'}}</p>
+  {{/modal-dialog}}
+{{/if}}

@@ -1,12 +1,13 @@
 import Ember from 'ember';
 const {
   isEmpty,
+  isPresent,
   inject: { service },
-  Route,
-  RSVP
+  Route
 } = Ember;
+import CheckUser from 'smartclime/mixins/check-user';
 
-export default Route.extend({
+export default Route.extend(CheckUser, {
 
   // services
   meService: service('me'),
@@ -21,16 +22,15 @@ export default Route.extend({
   // actions
   actions: {
 
-    signOut() {
-      this.get('session').close();
-      this.transitionTo('index');
+    async signOut() {
+      await this._removeMe();
+      await this.get('session').close();
+      await this.transitionTo('login');
     },
 
-    authenticate() {
-      this._setupMeService()
-      .then(() => {
-        this.transitionTo('me');
-      });
+    async authenticate() {
+      await this._setupMeService();
+      await this.transitionTo('index');
     },
 
     accessDenied() {
@@ -39,43 +39,50 @@ export default Route.extend({
   },
 
   // helpers
-  _setupMeService() {
-    let store = this.get('store');
+  async _setupMeService() {
     let session = this.get('session');
-    let currentUser = session.get('currentUser');
-    return new RSVP.Promise((resolve) => {
-      store.query('user', {
-        orderBy: 'uid',
-        equalTo: currentUser.uid
-      })
-      .then((users) => {
-        if (isEmpty(users)) {
-          this._createUserWithGoogle(currentUser)
-          .then((result) => {
-            this._setCurrentUserOnMe(result);
-            resolve();
-          });
-        } else {
-          let user = users.get('firstObject');
-          this._setCurrentUserOnMe(user);
-          resolve();
-        }
-      });
-    });
+    let authUser = session.get('currentUser');
+    await this._checkIfUserExists(authUser.email);
+    let users = this.get('foundUsers');
+    if (isEmpty(users)) {
+      let newUser = this._createUserWithGoogle(authUser);
+      await newUser;
+      this._setCurrentUserOnMe(newUser);
+    } else {
+      let existingUser = users.get('firstObject');
+      await this._fillInInfo(authUser, existingUser);
+      this._setCurrentUserOnMe(existingUser);
+    }
   },
 
-  _createUserWithGoogle(currentUser) {
+  async _fillInInfo(authUser, existingUser) {
+    let { uid, displayName, photoURL } = authUser;
+    existingUser.setProperties({ uid, displayName, photoURL });
+    existingUser.save();
+  },
+
+  async _removeMe() {
+    let meService = this.get('meService');
+    let me = meService.get('model');
+    let organization = me.get('organization');
+    await organization;
+    if ( isPresent(organization.get('content')) ) {
+      organization.get('content').unloadRecord();
+    }
+    me.unloadRecord();
+    // Need to properly manage unloading all records here
+    // https://github.com/firebase/emberfire/issues/400
+    meService.set('model', null);    
+  },
+
+  async _createUserWithGoogle(currentUser) {
     let store = this.get('store');
     let { email, displayName, uid, photoURL } = currentUser;
-    return new RSVP.Promise((resolve) => {
-      let newUser = store.createRecord('user', {
-        email, displayName, uid, photoURL
-      });
-      newUser.save()
-      .then(function() {
-        resolve(newUser);
-      });
+    let newUser = store.createRecord('user', {
+      email, displayName, uid, photoURL
     });
+    await newUser;
+    await newUser.save();
   },
 
   _setCurrentUserOnMe(currentUser) {

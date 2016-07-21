@@ -1,7 +1,9 @@
 @import "brand";
 @import "colors";
-@import "../../bower_components/materialize/sass/materialize";
-// @import "pod-styles";
+@import "materialize";
+@import "mdi";
+@import "modals";
+@import "pods";
 
 .logo { height: 50px }
 .click-fix { cursor: pointer }
