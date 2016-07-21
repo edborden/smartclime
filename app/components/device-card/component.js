@@ -8,7 +8,7 @@ const {
 export default Component.extend({
 
   // attributes
-  classNames: [ 'col', 's12', 'm6', 'l4' ],
+  classNames: [ 'col', 's12', 'm6', 'l4', 'click-fix' ],
   device: null,
 
   // services
