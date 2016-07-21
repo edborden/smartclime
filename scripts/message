@@ -1,0 +1,27 @@
+var log = require("log");
+log.setLevel("DEBUG");
+log.debug(request.rawBody);
+
+var bodyPacket = JSON.parse(request.rawBody).packet;
+var packetModule = require('./modules/smartclime/packet')
+var packet = new packetModule.Packet(bodyPacket);
+var device = packet.device();
+
+var time = require('./time');
+var duration = time.secondsAgo(device.updatedAt);
+
+var keenModule = require('./modules/keenio/keenioclient');
+var keen = new keenModule.Keenio("5785561b383144258cf97520");
+keen.recordEvent({
+  collection: "device",
+  data: {
+    device: device,
+    event: device.status,
+    duration: duration,
+    deviceId: device.key
+  }
+});
+
+packet.updateDevice();
+
+return null;
