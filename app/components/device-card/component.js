@@ -16,7 +16,8 @@ export default Component.extend({
 
   // events
   click() {
-    this.get('routing').transitionTo('device', this.get('device'));
+    // error in routing service API, needs [] for params
+    this.get('routing').transitionTo('device', [this.get('device')]);
   }
 
 });

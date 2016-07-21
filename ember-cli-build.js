@@ -24,7 +24,10 @@ module.exports = function(defaults) {
   // Materialize Icons
   var materializeIcons = pickFiles('bower_components/mdi/fonts', {
     destDir: '/fonts/mdi'
-  });  
+  });
+  
+  // Keen.io
+  app.import('bower_components/keen-js/dist/keen.min.js');
 
   return mergeTrees([ app.toTree(), materializeFonts, materializeIcons ]);
 };
