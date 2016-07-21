@@ -1,8 +1,3 @@
-/** Script ACLs do not delete 
- read=nobody 
-write=nobody
-execute=authenticated 
-  **/ 
  
  var http = require("http");
 var config = require("./config");
@@ -56,7 +51,7 @@ HttpClient.prototype._callApi = function(params, key) {
   params.url = params.url.indexOf("http") > -1 ? params.url : config.url + params.url;
   params.url += "?api_key=" +  key;
   
-  console.log(JSON.stringify(params));
+  //console.log(JSON.stringify(params));
   var response = http.request(params);
  // console.log("Received following response  : " + JSON.stringify(response));
   if (response.status >= "200" && response.status < "300") {

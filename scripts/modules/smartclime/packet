@@ -1,0 +1,40 @@
+var codes = require("./codes").dictionary;
+var firebaseModule = require('../../modules/firebase/firebaseClient');
+var firebase = new firebaseModule.Firebase();
+
+function Packet(packet) {
+  var length = packet.length;
+  
+  this.hardwareId = packet.substring(22,26);
+  //this.temperature = packet.substring(length-2, length);
+  this.event = codes[packet.substring(26,28)];
+}
+
+Packet.prototype.device = function() {
+
+  var record = firebase.queryData('devices', {
+    orderBy: 'hardwareId',
+    equalTo: this.hardwareId
+  });
+  
+  if ( Object.keys(record).length === 0 ) {
+    record = {
+      hardwareId: this.hardwareId,
+      isNew: true
+    };
+    var newRecord = firebase.postData('devices', record);
+    this.key = newRecord.name;
+  } else {
+	this.key = Object.keys(record)[0];
+    record = record[this.key];
+  }
+  this.record = record;
+  return record;
+};
+
+Packet.prototype.updateDevice = function() {
+  this.record.status = this.event;
+  this.record.updatedAt = new Date();
+  var endpoint = 'devices/' + this.key;
+  firebase.putData(endpoint, this.record);
+};
