@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { alias } from 'ember-computed-decorators';
 
 const {
   Mixin,
@@ -24,6 +23,6 @@ export default Mixin.create({
         resolve();
       });
     });
-  },
+  }
 
 });

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 const {
   isEmpty,
+  isPresent,
   inject: { service },
   Route
 } = Ember;
@@ -22,11 +23,9 @@ export default Route.extend(CheckUser, {
   actions: {
 
     async signOut() {
+      await this._removeMe();
+      await this.get('session').close();
       await this.transitionTo('login');
-      this._removeMe();
-      // Need to properly manage unloading all records here
-      // https://github.com/firebase/emberfire/issues/400
-      this.get('session').close();
     },
 
     async authenticate() {
@@ -47,7 +46,8 @@ export default Route.extend(CheckUser, {
     let users = this.get('foundUsers');
     if (isEmpty(users)) {
       let newUser = this._createUserWithGoogle(authUser);
-      await this._setCurrentUserOnMe(newUser);
+      await newUser;
+      this._setCurrentUserOnMe(newUser);
     } else {
       let existingUser = users.get('firstObject');
       await this._fillInInfo(authUser, existingUser);
@@ -61,9 +61,17 @@ export default Route.extend(CheckUser, {
     existingUser.save();
   },
 
-  _removeMe() {
+  async _removeMe() {
     let meService = this.get('meService');
-    meService.get('model').unload();
+    let me = meService.get('model');
+    let organization = me.get('organization');
+    await organization;
+    if ( isPresent(organization.get('content')) ) {
+      organization.get('content').unloadRecord();
+    }
+    me.unloadRecord();
+    // Need to properly manage unloading all records here
+    // https://github.com/firebase/emberfire/issues/400
     meService.set('model', null);    
   },
 
@@ -73,6 +81,7 @@ export default Route.extend(CheckUser, {
     let newUser = store.createRecord('user', {
       email, displayName, uid, photoURL
     });
+    await newUser;
     await newUser.save();
   },
 

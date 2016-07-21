@@ -73,7 +73,7 @@ describe('Acceptance: /auth', function() {
     it('logs in and redirects to index', function () {
       visit('/login');
 
-      click('button');
+      click('.login-button');
 
       andThen(function() {
         expect(currentPath()).to.equal('index');

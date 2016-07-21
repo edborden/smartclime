@@ -11,11 +11,11 @@ export default Route.extend(HasMe, {
     return this.get('me').get('organization');
   },
 
-  async afterModel(model) {
+  afterModel(model) {
     if (isPresent(model)) {
-      this.replaceWith('dashboard', model);
+      return this.transitionTo('dashboard', model);
     } else {
-      this.replaceWith('orphan');
+      return this.transitionTo('orphan');
     }    
   }
 
