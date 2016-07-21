@@ -1,1 +1,5 @@
-{{model.name}}
+<div class="row">
+  {{#each model.devices as |device|}}
+    {{device-card device=device}}
+  {{/each}}
+</div>

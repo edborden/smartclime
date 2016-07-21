@@ -13,6 +13,8 @@ export default Model.extend({
   name: attr('string'),
   hardwareId: attr('string'),
   isNew: attr('boolean'),
+  status: attr('string'),
+  updatedAt: attr('string'),
 
   // associations
   organization: belongsTo('organization')
