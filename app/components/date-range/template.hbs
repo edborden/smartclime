@@ -1,0 +1,9 @@
+{{#if setting}}
+  {{md-date label='Start Date' value=start}}
+  {{md-date label='End Date' value=end}}
+  {{#if isValid}}
+    {{md-btn text='Run new query' action='confirm'}}
+  {{/if}}
+{{else}}
+  {{md-btn text='Set New Range' action='setClicked'}}
+{{/if}}
