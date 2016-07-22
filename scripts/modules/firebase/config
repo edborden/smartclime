@@ -1,0 +1,4 @@
+var devProjectName = 'https://smartclime-dev.firebaseio.com/';
+var devSecret = 'eO5Zb8mPFFG3l8vsUWD8JnM4ktlS2LEqmH1Q0YwH';
+var projectName = 'https://smartclime-70e4f.firebaseio.com/';
+var secret = 'dEk4KWl8TIZ4onGqL6jIMcarRGpKwhQ6vTw4FOgH';

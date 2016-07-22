@@ -1,0 +1,8 @@
+var dictionary = {
+  80: "Run",
+  81: "Save",
+  82: "Bypass",
+  83: "Unknown",
+  84: "Off",
+  22: "Maintenance"
+};

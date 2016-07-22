@@ -1,0 +1,5 @@
+var secondsAgo = function(ago) {
+  var d = new Date();
+  var o = new Date(ago);
+  return (d - o) / 1000;
+};

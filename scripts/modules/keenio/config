@@ -1,8 +1,3 @@
-/** Script ACLs do not delete 
- read=nobody 
-write=nobody
-execute=authenticated 
-  **/ 
  
 var PROJECT_PREFIX = "project_";
 
@@ -13,11 +8,11 @@ var PROJECT_PREFIX = "project_";
  */
 var projects = {};
 
-projects[PROJECT_PREFIX + "Your_Keen.io_Project_Id"] = {
+projects[PROJECT_PREFIX + "5785561b383144258cf97520"] = {
 
-    writeKey: "YOUR_PROJECT_WRITE_KEY",
+    writeKey: "085ae468a89cde9e9a4f519048502d24ede46b8c07aa7582bcd51db735af88bba6a1c9517752375cee05b4b6347fd1e99fbcda5d72a6e44110c2ab2b0ffaa231c7bc6efe26179786713c0522b5699c37038f0202a5d056e13c1cc738b75c8287",
   
-    readKey: "YOUR_PROJECT_READ_KEY"
+    readKey: ""
 };
 
 // Default URL of Keen.io's APIs

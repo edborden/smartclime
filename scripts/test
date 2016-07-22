@@ -1,0 +1,15 @@
+var headers = { 
+  "Authorization": "bearer RUQ3REU0OUQxMDpzY3JpcHRyOjQ0NzBCREJCODE3RUExMzM4NkI4M0FBRDIzMzhFNjE1",
+  "Content-Type": "application/json"
+};
+var body = { "packet": "xxxxxxxxxxxxa100004b9047d181xx03" };
+var req = {
+  bodyString: JSON.stringify(body),
+  headers: headers,
+  url: "https://smartclime.scriptrapps.io/message",
+  method: "POST"
+};
+var http = require('http');
+var response = http.request(req);
+
+return response;
