@@ -1,4 +1,12 @@
 <div class="row">
+  <div class="col s12 m12 l6">
+    {{keen-query waitFor=model.devices filterName="device.hardwareId" filterValue=(map-by "hardwareId" model.devices) title="This Month" timeframe="this_1_months"}}
+  </div>
+  <div class="col s12 m12 l6">
+    {{keen-query waitFor=model.devices filterName="device.hardwareId" filterValue=(map-by "hardwareId" model.devices) title="Last Month" timeframe="previous_1_months"}}
+  </div>
+</div>
+<div class="row">
   {{#each model.devices as |device|}}
     {{device-card device=device}}
   {{/each}}
