@@ -40,9 +40,11 @@ export default Component.extend(EmberValidations, {
       let device = this.get('device');
       let name = this.get('deviceName');
       let organization = this.get('deviceOrganization');
-      device.set('name', name);
-      device.set('organization', organization);
-      device.set('isNew', false);
+      device.setProperties({
+        name,
+        organization,
+        isNew: false
+      });
       await device.save();
       organization.get('devices').pushObject(device);
       await organization.save();
