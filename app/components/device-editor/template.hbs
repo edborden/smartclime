@@ -1,0 +1,17 @@
+<h5>
+  {{device.name}}
+  {{#if me.admin}}
+    &nbsp;&nbsp;&nbsp;
+    {{md-btn icon="pencil" action="toggleModal"}}
+    {{md-btn icon="close" action="remove"}}
+  {{/if}}
+</h5>
+
+{{#if modal}}
+  {{#modal-dialog close="toggleModal"
+                  targetAttachment="center"
+                  translucentOverlay=true}}
+    {{md-input placeholder="New Name" value=deviceName}}
+    <p>{{md-btn action='edit' disabled=isInvalid icon='check'}}</p>
+  {{/modal-dialog}}
+{{/if}}
