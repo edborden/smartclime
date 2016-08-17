@@ -1,0 +1,18 @@
+.chip {
+  .light {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+  .light.green {
+    background-color: green
+  }
+  .light.yellow {
+    background-color: yellow
+  }
+  .light.red {
+    background-color: red
+  }
+}

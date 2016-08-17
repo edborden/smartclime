@@ -1,10 +1,13 @@
-<div class="card-panel">
-  <p>{{device.name}}</p>
-  <p>
-    {{device.status}}
-    &nbsp;
-    {{#if device.updatedAt}}
-      {{moment-from-now device.updatedAt}}
-    {{/if}}
-  </p>
+<div class="chip">
+  {{device.name}}
+  {{#if me.admin}}
+    &nbsp;({{device.hardwareId}})
+  {{/if}}
+  &nbsp;-&nbsp;
+  {{device.status}}
+  &nbsp;
+  {{#if device.updatedAt}}
+    {{moment-from-now device.updatedAt}}
+  {{/if}}
+  <div class="light {{if (eq device.status 'Off') 'red' 'green'}}"></div>
 </div>
