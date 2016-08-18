@@ -1,2 +1,7 @@
-<div class="collapsible-header">{{title}}</div>
+<div class="collapsible-header">
+  {{title}}
+  {{#if badge}}
+    <span class="badge">{{badge}}</span>
+  {{/if}}
+</div>
 <div class="collapsible-body"><p>{{yield}}</p></div>

@@ -6,7 +6,7 @@
   &nbsp;-&nbsp;
   {{device.status}}
   {{#if device.updatedAt}}
-    {{moment-from-now device.updatedAt}}
+    ({{moment-from-now device.updatedAt hideSuffix=true}})
   {{/if}}
   <div class="light {{if (eq device.status 'Off') 'red' 'green'}}"></div>
 </div>

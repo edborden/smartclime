@@ -7,6 +7,7 @@ const {
 export default Component.extend({
 
   // attributes
-  tagName: 'li'
+  tagName: 'li',
+  classNames: [ 'collapsible-item' ]
 
 });

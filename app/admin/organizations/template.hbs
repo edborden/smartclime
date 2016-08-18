@@ -2,7 +2,7 @@
 
 {{#md-collapsible}}
   {{#each model as |organization|}}
-    {{#collapsible-item title=organization.name}}
+    {{#collapsible-item title=organization.name badge=organization.devices.length}}
       <div class="row">
         <div class="col m6">
           <div class="row">
