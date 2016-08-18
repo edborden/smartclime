@@ -9,7 +9,7 @@ const {
 export default Component.extend(HasMe, {
 
   // attributes
-  classNames: [ 'col', 's12', 'm6', 'l4', 'click-fix' ],
+  classNames: [ 'col', 's12', 'm12', 'l6', 'click-fix' ],
   device: null,
 
   // services
