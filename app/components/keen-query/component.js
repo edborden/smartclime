@@ -79,6 +79,10 @@ export default Component.extend({
         operator: filterOperator,
         property_name: filterName,
         property_value: filterValue
+      }, {
+        operator: 'in',
+        property_name: 'event',
+        property_value: [ 'Bypass', 'Run', 'Save' ]
       } ];
     }
 

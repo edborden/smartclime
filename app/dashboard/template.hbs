@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="row">
-  {{#each model.devices as |device|}}
+  {{#each (sort-by "name" model.devices) as |device|}}
     {{device-card device=device}}
   {{/each}}
 </div>
