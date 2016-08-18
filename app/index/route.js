@@ -12,11 +12,17 @@ export default Route.extend(HasMe, {
   },
 
   afterModel(model) {
-    if (isPresent(model)) {
-      return this.transitionTo('dashboard', model);
+    let me = this.get('me');
+    let eula = me.get('eula');
+    if (eula) {
+      if (isPresent(model)) {
+        return this.transitionTo('dashboard', model);
+      } else {
+        return this.transitionTo('orphan');
+      }      
     } else {
-      return this.transitionTo('orphan');
-    }    
+      return this.transitionTo('eula');
+    }
   }
 
 });

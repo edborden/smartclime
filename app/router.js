@@ -19,6 +19,7 @@ router.map(function() {
   this.authenticatedRoute('dashboard', { path: 'dashboard/:organization_id' });
   this.authenticatedRoute('device', { path: 'device/:device_id' });
   this.authenticatedRoute('orphan');
+  this.authenticatedRoute('eula');
 });
 
 export default router;

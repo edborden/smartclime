@@ -13,6 +13,7 @@ export default Model.extend({
   email: attr('string'),
   photoURL: attr('string'),
   uid: attr('string'),
+  eula: attr('boolean', { defaultValue: false }),
 
   // associations
   organization: belongsTo('organization'),
