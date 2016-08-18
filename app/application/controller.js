@@ -11,17 +11,17 @@ export default Controller.extend(HasMe, {
   // computed
   @computed('currentRouteName')
   noNav() {
-    return ['login'].contains(this.get('currentRouteName'));
+    return [ 'login', 'eula' ].contains(this.get('currentRouteName'));
   },
 
   @computed('currentRouteName')
   noContainer() {
-    return ['login'].contains(this.get('currentRouteName'));
+    return [ 'login' ].contains(this.get('currentRouteName'));
   },
 
   @computed('currentRouteName')
   noFooter() {
-    return ['login'].contains(this.get('currentRouteName'));
+    return [ 'login' ].contains(this.get('currentRouteName'));
   }
 
 });
