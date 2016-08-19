@@ -1,13 +1,10 @@
 import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-import EmberValidations from 'ember-validations';
 
 const {
-  Component,
-  inject: { service }
+  Component
 } = Ember;
 
-export default Component.extend(EmberValidations, {
+export default Component.extend({
 
   group: null,
   groupValue: null
