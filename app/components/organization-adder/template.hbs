@@ -2,10 +2,19 @@
 
 {{#if modal}}
   {{#modal-dialog close="toggleModal"
-                  targetAttachment="center"
-                  translucentOverlay=true}}
-    <p>{{device.hardwareId}}</p>
+    targetAttachment="center"
+    translucentOverlay=true}}
+
     {{md-input placeholder="Name" value=name}}
+    {{md-radio group=(hash 0='Residential' 1='Commercial') groupValue=customerType}}
+    {{#x-select value=timeZone classNames="browser-default"}}
+      {{#each-in (hash 0='PT' 1='MT' 2='CT' 3='ET') as |key value|}}
+        {{#x-option value=key}}
+          {{value}}
+        {{/x-option}}
+      {{/each-in}}
+    {{/x-select}}
+
     <p>{{md-btn action='save' icon='check' disabled=isInvalid}}</p>
   {{/modal-dialog}}
 {{/if}}

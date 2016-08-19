@@ -1,0 +1,6 @@
+{{#each-in group as |key value|}}
+  <p>
+    <input name={{elementId}} type="radio" id={{concat elementId key}} checked={{eq groupValue key}} />
+    <label for={{concat elementId key}}>{{value}} {{groupValue}} {{key}}</label>
+  </p>
+{{/each-in}}
