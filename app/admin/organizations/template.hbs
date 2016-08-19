@@ -18,15 +18,7 @@
         </div>
         <div class="col m6">
           {{#each organization.users as |user|}}
-            {{#if user.displayName}}
-              <div>
-                {{user.displayName}}: {{user.email}}
-              </div>
-            {{else}}
-              <div class="grey-text">
-                {{user.email}} (not logged in yet)
-              </div>
-            {{/if}}
+            {{user-chip user=user}}
           {{else}}
             No users in this organization yet.
           {{/each}}

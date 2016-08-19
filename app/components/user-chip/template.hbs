@@ -1,0 +1,9 @@
+{{#if user.displayName}}
+  {{user.displayName}}: {{user.email}}
+{{else}}
+  <span class="grey-text">
+    {{user.email}} (not logged in yet)
+  </span>
+{{/if}}
+&nbsp;
+<span {{action 'removeUser'}}>{{i-mdi icon='close' class='red-text click-fix'}}</span>
