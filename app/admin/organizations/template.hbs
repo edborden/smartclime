@@ -5,22 +5,21 @@
     {{#collapsible-item title=organization.name badge=organization.devices.length}}
       <div class="row">
         <div class="col m6">
-          <div class="row">
-            <div class="col s6">
-              {{user-adder organization=organization}}
-            </div>
-            <div class="col s6">
-              {{#link-to 'dashboard' organization}}
-                {{md-btn icon='chart-pie'}}
-              {{/link-to}}
-            </div>
-          </div>
+          {{user-adder organization=organization}}
+          {{#unless (or organization.devices organization.users)}}
+            {{md-btn text="Delete Org" icon="delete" color="red" click=(route-action 'destroyOrganization' organization)}}
+          {{/unless}}
+          {{#if organization.devices}}
+            {{#link-to 'dashboard' organization}}
+              {{md-btn text='Dashboard' icon='chart-pie'}}
+            {{/link-to}}
+          {{/if}}
         </div>
         <div class="col m6">
           {{#each organization.users as |user|}}
             {{user-chip user=user}}
           {{else}}
-            No users in this organization yet.
+            No users yet.
           {{/each}}
         </div>
       </div>
