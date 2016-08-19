@@ -13,6 +13,8 @@ export default MdBtn.extend(EmberValidations, {
   color: 'red',
   modal: false,
   name: null,
+  customerType: '0',
+  timeZone: '0',
 
   // services
   store: service(),
@@ -28,10 +30,8 @@ export default MdBtn.extend(EmberValidations, {
       this.set('modal', false);
     },
     async save() {
-      let name = this.get('name');
-      let organization = this.get('store').createRecord('organization', {
-        name
-      });
+      let properties = this.getProperties('name', 'timeZone', 'customerType');
+      let organization = this.get('store').createRecord('organization', properties);
       await organization.save();
       this.send('toggleModal');
     }

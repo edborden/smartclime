@@ -1,4 +1,4 @@
-<div class="chip">
+<div class="chip device-card">
   {{device.name}}
   {{#if me.admin}}
     &nbsp;({{device.hardwareId}})
@@ -6,7 +6,7 @@
   &nbsp;-&nbsp;
   {{device.status}}
   {{#if device.updatedAt}}
-    {{moment-from-now device.updatedAt}}
+    ({{moment-from-now device.updatedAt hideSuffix=true}})
   {{/if}}
   <div class="light {{if (eq device.status 'Off') 'red' 'green'}}"></div>
 </div>

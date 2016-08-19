@@ -82,7 +82,7 @@ export default Component.extend({
       }, {
         operator: 'in',
         property_name: 'event',
-        property_value: [ 'Bypass', 'Run', 'Save' ]
+        property_value: [ 'Override', 'Run', 'Save' ]
       } ];
     }
 
