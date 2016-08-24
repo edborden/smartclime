@@ -1,4 +1,13 @@
-<div>{{device.hardwareId}}<a href="#!" class="secondary-content">{{i-mdi icon='plus'}}</a></div>
+<div>
+  {{device.hardwareId}}
+  &nbsp;-&nbsp;
+  {{device.status}}
+  {{#if device.updatedAt}}
+    ({{moment-from-now device.updatedAt hideSuffix=true}})
+  {{/if}}
+  <a href="#!" class="secondary-content" {{action 'destroy'}}>{{i-mdi class="mdi-24px red-text" icon='close'}}</a>
+  <a href="#!" class="secondary-content">{{i-mdi class="mdi-24px" icon='plus' click=(toggle "modal" this)}}</a>
+</div>
 
 {{#if modal}}
   {{#modal-dialog close="toggleModal"
