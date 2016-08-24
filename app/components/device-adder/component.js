@@ -11,7 +11,7 @@ export default Component.extend(EmberValidations, {
 
   // attributes
   tagName: 'li',
-  classNames: [ 'collection-item', 'click-fix' ],
+  classNames: [ 'collection-item' ],
   device: null,
   modal: false,
   deviceName: null,
@@ -24,11 +24,6 @@ export default Component.extend(EmberValidations, {
   @computed
   organizations() {
     return this.get('store').findAll('organization');
-  },
-
-  // events
-  click() {
-    this.set('modal', true);
   },
 
   // actions
@@ -48,6 +43,10 @@ export default Component.extend(EmberValidations, {
       await device.save();
       organization.get('devices').pushObject(device);
       await organization.save();
+    },
+    destroy() {
+      let device = this.get('device');
+      device.destroyRecord();      
     }
   },
 
