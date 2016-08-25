@@ -47,6 +47,7 @@ export default MdBtn.extend(EmberValidations, CheckUser, {
       await user.save();
       organization.get('users').pushObject(user);
       await organization.save();
+      this.set('email', null);
       this.send('toggleModal');
     }
   },
