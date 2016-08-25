@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import { equal } from 'ember-computed-decorators';
 
 const {
   Model,
@@ -19,6 +20,6 @@ export default Model.extend({
   organization: belongsTo('organization'),
 
   // computed
-  admin: true // will compute based on org
+  @equal('organization.id', '-KQ2ZQSg7mcgFSUupLz0') admin: null
 
 });

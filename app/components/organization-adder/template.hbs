@@ -7,6 +7,7 @@
 
     {{md-input placeholder="Name" value=name}}
     {{md-radio group=(hash 0='Residential' 1='Commercial') groupValue=customerType}}
+    Time Zone:
     {{#x-select value=timeZone classNames="browser-default"}}
       {{#each-in (hash 0='PT' 1='MT' 2='CT' 3='ET') as |key value|}}
         {{#x-option value=key}}
