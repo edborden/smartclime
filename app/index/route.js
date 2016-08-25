@@ -16,7 +16,11 @@ export default Route.extend(HasMe, {
     let eula = me.get('eula');
     if (eula) {
       if (isPresent(model)) {
-        return this.transitionTo('dashboard', model);
+        if (me.get('admin')) {
+          return this.transitionTo('admin');
+        } else {
+          return this.transitionTo('dashboard', model);
+        }
       } else {
         return this.transitionTo('orphan');
       }      
