@@ -1,0 +1,16 @@
+var log = require("log");
+log.setLevel("DEBUG");
+
+var firebaseModule = require('../modules/firebase/firebaseClient');
+var firebase = new firebaseModule.Firebase();
+
+var devices = firebase.getData('devices');
+//console.log(JSON.stringify(devices));
+var keys = Object.keys(devices);
+keys.forEach(function(key) {
+  var device = devices[key];
+  var endpoint = 'devices/' + key;
+  device.createdAt = new Date();
+  firebase.putData(endpoint, device);
+  console.log(device.status+device.hardwareId+device.updatedAt);
+});
