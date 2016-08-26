@@ -5,41 +5,25 @@ log.debug(request.rawBody);
 var bodyPacket = JSON.parse(request.rawBody).packet;
 var packetModule = require('./modules/smartclime/packet')
 var packet = new packetModule.Packet(bodyPacket);
-var device = packet.device();
 
-if (device.anomaly) {
+if (packet.anomaly) {
 
   var time = new Date();
   var mailBody = "An anomalous packet was detected at " + time + ":<br>";
-  mailBody += bodyPacket + "<br>" + device.anomalyMessage;
+  mailBody += bodyPacket + "<br>" + packet.anomalyMessage;
   var emailConfig = {
     "fromName": "SmartClime Admin Alert",
     "subject": "Anomalous SmartClime Packet Alert",
     "body": mailBody
   };
-  [ "borden.edward@gmail.com", "maurizio.arienzo@connected-holdings.com"].forEach(function(email) {
+  ["borden.edward@gmail.com"].forEach(function(email) {
 	sendMail(email, emailConfig.fromName, emailConfig.subject, emailConfig.body);
   });
 
 } else {
   
-  if (device.event !== "Maintenance") {
-    var time = require('./time');
-    var duration = time.secondsAgo(device.updatedAt);
-
-    var keenModule = require('./modules/keenio/keenioclient');
-    var keen = new keenModule.Keenio("5785561b383144258cf97520");
-    keen.recordEvent({
-      collection: "device",
-      data: {
-        device: device,
-        event: device.status,
-        duration: duration,
-        deviceId: device.key,
-        packet: bodyPacket
-      }
-    });
-
+  if (packet.event !== "Maintenance") {
+	packet.recordKeen();
     packet.updateDevice();
   }
   

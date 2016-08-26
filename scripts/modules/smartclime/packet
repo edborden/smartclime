@@ -1,15 +1,16 @@
 var codes = require("./codes").dictionary;
 var firebaseModule = require('../../modules/firebase/firebaseClient');
 var firebase = new firebaseModule.Firebase();
-var utils = require("./utils") ;
 
 function Packet(packet) {
+  this.packet = packet;
   this.anomaly = false;
-  //var length = packet.length;
   
-  if (packet.substring(0,22) !== "7e0029000100a100004b90" ) {
+  var CDMAdevice = packet.substring(0,22) === "7e00290000001463100028"
+  var GSMdevice = packet.substring(0,22) === "7e0029000100a100004b90"
+  if ( !CDMAdevice && !GSMdevice ) {
     this.anomaly = true;
-    this.anomalyMessage = "Every packet should begin with '7e0029000100a100004b90'. This one doesn't.";
+    this.anomalyMessage = "Unrecognized device.";
   }
 
   this.hardwareId = packet.substring(22,26);
@@ -19,6 +20,10 @@ function Packet(packet) {
   if (this.event === null || this.event === "Unknown") {
     this.anomaly = true;
     this.anomalyMessage = "This packet has an event type of '" + packet.substring(26,28) + "', which is null or Unknown.";
+  }
+  
+  if (this.anomaly === false && this.event !== "Maintenance") {
+    this.device();
   }
 }
 
@@ -49,4 +54,22 @@ Packet.prototype.updateDevice = function() {
   this.record.updatedAt = new Date();
   var endpoint = 'devices/' + this.key;
   firebase.putData(endpoint, this.record);
+};
+
+Packet.prototype.recordKeen = function() {
+  var time = require('../../modules/utils/time');
+  var device = this.record;
+  var duration = time.secondsAgo(device.updatedAt);
+  var keenModule = require('../../modules/keenio/keenioclient');
+  var keen = new keenModule.Keenio("5785561b383144258cf97520");
+  keen.recordEvent({
+    collection: "device",
+    data: {
+      device: device,
+      event: device.status,
+      duration: duration,
+      deviceId: device.key,
+      packet: this.packet
+    }
+  });
 };
