@@ -1,4 +1,3 @@
-var codes = require("./codes").dictionary;
 var firebaseModule = require('../../modules/firebase/firebaseClient');
 var firebase = new firebaseModule.Firebase();
 
@@ -6,20 +5,35 @@ function Packet(packet) {
   this.packet = packet;
   this.anomaly = false;
   
-  var CDMAdevice = packet.substring(0,22) === "7e00290000001463100028"
-  var GSMdevice = packet.substring(0,22) === "7e0029000100a100004b90"
+  var lengthSubstring = packet.substring(0,6);
+  var normalLength = lengthSubstring === "7e0028" || lengthSubstring === "7e0029";
+  if ( !normalLength ) {
+    this.anomaly = true;
+    this.anomalyMessage = "Abnormal length.";
+  }  
+  
+  var deviceSubstring = packet.substring(6,12);
+  var CDMAdevice = deviceSubstring === "000000";
+  var GSMdevice =  deviceSubstring === "000100";
   if ( !CDMAdevice && !GSMdevice ) {
     this.anomaly = true;
     this.anomalyMessage = "Unrecognized device.";
   }
 
-  this.hardwareId = packet.substring(22,26);
-  //this.temperature = packet.substring(length-2, length);
-  this.event = codes[packet.substring(26,28)];
+  if (GSMdevice) {
+    this.hardwareId = packet.substring(22,26);
+    this.eventCode = packet.substring(26,28);   
+  } else {
+    this.hardwareId = packet.substring(20,27);
+    this.eventCode = packet.substring(27,29);
+  }
   
-  if (this.event === null || this.event === "Unknown") {
+  var codes = require("./codes").dictionary;
+  this.event = codes[this.eventCode]; 
+
+  if (this.event === null) {
     this.anomaly = true;
-    this.anomalyMessage = "This packet has an event type of '" + packet.substring(26,28) + "', which is null or Unknown.";
+    this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
   }
   
   if (this.anomaly === false && this.event !== "Maintenance") {
@@ -37,7 +51,8 @@ Packet.prototype.device = function() {
   if ( Object.keys(record).length === 0 ) {
     record = {
       hardwareId: this.hardwareId,
-      isNew: true
+      isNew: true,
+      createdAt: new Date()
     };
     var newRecord = firebase.postData('devices', record);
     this.key = newRecord.name;
