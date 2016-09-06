@@ -3,6 +3,6 @@ var dictionary = {
   81: "Save",
   82: "Bypass",
   83: "Override",
-  84: "Off",
-  22: "Maintenance"
+  84: "Off"//,
+  //22: "Maintenance"
 };
