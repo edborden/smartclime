@@ -12,9 +12,9 @@ function Packet(packet) {
     this.anomalyMessage = "Abnormal length.";
   }  
   
-  var deviceSubstring = packet.substring(6,12);
-  var CDMAdevice = deviceSubstring === "000000";
-  var GSMdevice =  deviceSubstring === "000100";
+  var deviceSubstring = packet.substring(6,10);
+  var CDMAdevice = deviceSubstring === "0000";
+  var GSMdevice =  deviceSubstring === "0001";
   if ( !CDMAdevice && !GSMdevice ) {
     this.anomaly = true;
     this.anomalyMessage = "Unrecognized device.";
@@ -24,19 +24,19 @@ function Packet(packet) {
     this.hardwareId = packet.substring(22,26);
     this.eventCode = packet.substring(26,28);   
   } else {
-    this.hardwareId = packet.substring(20,27);
-    this.eventCode = packet.substring(27,29);
+    this.hardwareId = packet.substring(20,26);
+    this.eventCode = packet.substring(26,28);
   }
   
   var codes = require("./codes").dictionary;
   this.event = codes[this.eventCode]; 
 
-  if (this.event === null) {
-    this.anomaly = true;
-    this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
-  }
+  //if (this.event === null || this.event === undefined) {
+  //  this.anomaly = true;
+  //  this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
+  //}
   
-  if (this.anomaly === false && this.event !== "Maintenance") {
+  if (this.anomaly === false) {
     this.device();
   }
 }
