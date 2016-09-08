@@ -36,7 +36,7 @@ function Packet(packet) {
   //  this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
   //}
   
-  if (this.anomaly === false) {
+  if (this.anomaly === false && this.event != null && this.event != undefined) {
     this.device();
   }
 }
