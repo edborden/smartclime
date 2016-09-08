@@ -3,6 +3,7 @@ import Ember from 'ember';
 import ChildComponentSupport from 'ember-composability/mixins/child-component-support';
 import RangedPie from 'smartclime/components/ranged-pie/component';
 import KeenQuery from 'smartclime/components/keen-query/component';
+import computed from 'ember-computed-decorators';
 
 const {
   run: { bind }
@@ -18,13 +19,17 @@ export default KeenQuery.extend(ChildComponentSupport, {
   filterName: 'device.hardwareId',
   filterValue: null,
   filterOperator: 'eq',
-  timeframe: {
-    start: '2016-07-01T04:00:00.000Z',
-    end: '2016-07-30T04:00:00.000Z'
-  },
   targetProperty: 'duration',
   interval: null,
   chartType: 'piechart',
+
+  @computed
+  timeframe() {
+    return {
+      start: moment().startOf('month'),
+      end: moment()
+    };
+  },
 
   _title() {
     let timeframe = this.get('timeframe');
