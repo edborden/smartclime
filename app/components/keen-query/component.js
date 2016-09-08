@@ -57,7 +57,6 @@ export default Component.extend({
   _queryOptions() {
     let { 
       eventCollection, 
-      timeframe, 
       interval, 
       targetProperty, 
       groupBy, 
@@ -67,7 +66,7 @@ export default Component.extend({
     } = this;
     let queryOptions = {
       eventCollection,
-      timeframe,
+      timeframe: this.get('timeframe'),
       interval,
       targetProperty,
       groupBy
