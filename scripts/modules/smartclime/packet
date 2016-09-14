@@ -5,12 +5,12 @@ function Packet(packet) {
   this.packet = packet;
   this.anomaly = false;
   
-  var lengthSubstring = packet.substring(0,6);
-  var normalLength = lengthSubstring === "7e0028" || lengthSubstring === "7e0029";
-  if ( !normalLength ) {
-    this.anomaly = true;
-    this.anomalyMessage = "Abnormal length.";
-  }  
+  //var lengthSubstring = packet.substring(0,6);
+  //var normalLength = lengthSubstring === "7e0028" || lengthSubstring === "7e0029";
+  //if ( !normalLength ) {
+  //  this.anomaly = true;
+  //  this.anomalyMessage = "Abnormal length.";
+  //}  
   
   var deviceSubstring = packet.substring(6,10);
   var CDMAdevice = deviceSubstring === "0000";
