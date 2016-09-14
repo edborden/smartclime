@@ -4,30 +4,6 @@ log.debug(request.rawBody);
 
 var bodyPacket = JSON.parse(request.rawBody).packet;
 var packetModule = require('./modules/smartclime/packet')
-var packet = new packetModule.Packet(bodyPacket);
-
-if (packet.anomaly) {
-
-  var time = new Date();
-  var mailBody = "An anomalous packet was detected at " + time + ":<br>";
-  mailBody += bodyPacket + "<br>" + packet.anomalyMessage;
-  var emailConfig = {
-    "fromName": "SmartClime Admin Alert",
-    "subject": "Anomalous SmartClime Packet Alert",
-    "body": mailBody
-  };
-  ["borden.edward@gmail.com"].forEach(function(email) {
-	sendMail(email, emailConfig.fromName, emailConfig.subject, emailConfig.body);
-  });
-
-} else {
-  
-  if (packet.event !== "Maintenance") {
-	packet.recordKeen();
-    packet.updateDevice();
-  }
-  
-}
-
+new packetModule.Packet(bodyPacket);
 
 return null;
