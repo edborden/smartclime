@@ -39,6 +39,30 @@ function Packet(packet) {
   if (this.anomaly === false && this.event != null && this.event != undefined) {
     this.device();
   }
+  
+  if (this.anomaly) {
+
+    var time = new Date();
+    var mailBody = "An anomalous packet was detected at " + time + ":<br>";
+    mailBody += bodyPacket + "<br>" + this.anomalyMessage;
+    var emailConfig = {
+      "fromName": "SmartClime Admin Alert",
+      "subject": "Anomalous SmartClime Packet Alert",
+      "body": mailBody
+    };
+    ["borden.edward@gmail.com"].forEach(function(email) {
+      sendMail(email, emailConfig.fromName, emailConfig.subject, emailConfig.body);
+    });
+
+  } else {
+
+    if (this.event !== "Maintenance") {
+      this.recordKeen();
+      this.updateDevice();
+    }
+
+  }  
+  
 }
 
 Packet.prototype.device = function() {
