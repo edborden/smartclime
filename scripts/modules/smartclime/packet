@@ -1,26 +1,17 @@
 var firebaseModule = require('../../modules/firebase/firebaseClient');
 var firebase = new firebaseModule.Firebase();
+var anomalyCheckerModule = require('./anomalyChecker');
 
 function Packet(packet) {
   this.packet = packet;
-  this.anomaly = false;
   
-  //var lengthSubstring = packet.substring(0,6);
-  //var normalLength = lengthSubstring === "7e0028" || lengthSubstring === "7e0029";
-  //if ( !normalLength ) {
-  //  this.anomaly = true;
-  //  this.anomalyMessage = "Abnormal length.";
-  //}  
+  //this.lengthSubstring = packet.substring(4,6);
   
-  var deviceSubstring = packet.substring(6,10);
-  var CDMAdevice = deviceSubstring === "0000";
-  var GSMdevice =  deviceSubstring === "0001";
-  if ( !CDMAdevice && !GSMdevice ) {
-    this.anomaly = true;
-    this.anomalyMessage = "Unrecognized device.";
-  }
+  this.deviceSubstring = packet.substring(6,10);
+  this.CDMAdevice = this.deviceSubstring === "0000";
+  this.GSMdevice = this.deviceSubstring === "0001";
 
-  if (GSMdevice) {
+  if (this.GSMdevice) {
     this.hardwareId = packet.substring(22,26);
     this.eventCode = packet.substring(26,28);   
   } else {
@@ -30,38 +21,16 @@ function Packet(packet) {
   
   var codes = require("./codes").dictionary;
   this.event = codes[this.eventCode]; 
-
-  //if (this.event === null || this.event === undefined) {
-  //  this.anomaly = true;
-  //  this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
-  //}
   
-  if (this.anomaly === false && this.event != null && this.event != undefined) {
+  this.validEvent = this.event !== "Maintenance" && this.event != null && this.event != undefined;
+  
+  var anomalyChecker = new anomalyCheckerModule.AnomalyChecker(this);
+  this.anomaly = anomalyChecker.anomaly;
+  if (!this.anomaly && this.validEvent) {
     this.device();
+    this.recordKeen();
+    this.updateDevice();
   }
-  
-  if (this.anomaly) {
-
-    var time = new Date();
-    var mailBody = "An anomalous packet was detected at " + time + ":<br>";
-    mailBody += bodyPacket + "<br>" + this.anomalyMessage;
-    var emailConfig = {
-      "fromName": "SmartClime Admin Alert",
-      "subject": "Anomalous SmartClime Packet Alert",
-      "body": mailBody
-    };
-    ["borden.edward@gmail.com"].forEach(function(email) {
-      sendMail(email, emailConfig.fromName, emailConfig.subject, emailConfig.body);
-    });
-
-  } else {
-
-    if (this.event !== "Maintenance") {
-      this.recordKeen();
-      this.updateDevice();
-    }
-
-  }  
   
 }
 

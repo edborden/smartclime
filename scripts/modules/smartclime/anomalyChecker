@@ -1,0 +1,37 @@
+function AnomalyChecker(packet) {
+  this.packet = packet;
+  this.check();
+}
+
+AnomalyChecker.prototype.check = function() {
+  
+  var packet = this.packet;
+  this.anomaly = false;
+  
+  if ( !packet.CDMAdevice && !packet.GSMdevice ) {
+    this.anomaly = true;
+    this.anomalyMessage = "Unrecognized device.";
+  }
+  
+  //if (this.event === null || this.event === undefined) {
+  //  this.anomaly = true;
+  //  this.anomalyMessage = "This packet has an event type of '" + this.eventCode + "', which is Unknown.";
+  //}
+  
+  if (this.anomaly) {
+
+    var time = new Date();
+    var mailBody = "An anomalous packet was detected at " + time + ":<br>";
+    mailBody += bodyPacket + "<br>" + this.anomalyMessage;
+    var emailConfig = {
+      "fromName": "SmartClime Admin Alert",
+      "subject": "Anomalous SmartClime Packet Alert",
+      "body": mailBody
+    };
+    ["borden.edward@gmail.com"].forEach(function(email) {
+      sendMail(email, emailConfig.fromName, emailConfig.subject, emailConfig.body);
+    });
+    
+  }
+  
+};
