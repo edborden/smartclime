@@ -1,5 +1,6 @@
 var config = require("./config");
 var httpClient = require("./firebasehttpclient");
+var utils = require('./utils');
 
 /**
  * This is the main class to use to interact with Firebase
@@ -39,6 +40,17 @@ Firebase.prototype.getData = function(tree) {
   }
   
   return response;
+};
+
+/**
+ * @method getArray
+ * @param {String} [tree] : name of the requested data tree. Optional
+ * @return {Array} data object stored at location morphed into array
+ * @throw {Error} the method can throw exceptions
+ */
+Firebase.prototype.getArray = function(tree) {
+  var object = this.getData(tree);
+  return utils.objectToArray(object);
 };
 
 /**
@@ -101,16 +113,16 @@ Firebase.prototype.queryData = function(key, query) {
   req.url = this.projectName + key + ".json";
   req.url = req.url + "?auth=" + this.secret;
   if (query.orderBy) {
-  	req.url = req.url + "&orderBy=%22" + query.orderBy + "%22";
+    req.url = req.url + "&orderBy=%22" + query.orderBy + "%22";
   }
   if (query.equalTo) {
-  	req.url = req.url + "&equalTo=%22" + query.equalTo + "%22";
+    req.url = req.url + "&equalTo=%22" + query.equalTo + "%22";
   }
   if (query.limitToLast) {
-  	req.url = req.url + "&limitToLast=" + query.limitToLast;
+    req.url = req.url + "&limitToLast=" + query.limitToLast;
   }
   if (query.limitToFirst) {
-  	req.url = req.url + "&limitToFirst" + query.limitToFirst;
+    req.url = req.url + "&limitToFirst" + query.limitToFirst;
   }
   req.method = "GET";
   

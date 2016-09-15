@@ -1,0 +1,44 @@
+var firebaseModule = require('../../firebase/firebaseClient');
+var firebase = new firebaseModule.Firebase();
+var firebaseUtils = require('../../firebase/utils');
+var timeUtils = require('../../utils/time');
+
+function AlertGenerator(packet) {
+  this.packet = packet;
+  this.deviceKey = packet.key;
+  this.orgKey = packet.record.organization;
+  if (packet.event === "Bypass") {
+    var records = firebase.queryData('alerts', {
+      orderBy: 'device',
+      equalTo: this.deviceKey,
+      limitToLast: 3
+    });
+    records = firebaseUtils.objectToArray(records);
+    var filteredRecords = records.filter(function(record) {
+      return record.alertType === 0;
+    });
+    filteredRecords = filteredRecords.filter(function(record) {
+      return timeutils.daysAgo(record.createdAt) < 1;
+    });
+    if (filteredRecords.length === 0) {
+      this.generateAlertFromType(0);
+    }
+  }
+}
+
+AlertGenerator.prototype.generateAlertFromType = function(type) {
+  var alert = {
+    organization: this.orgKey,
+    device: this.deviceKey,
+    alertType: 0,
+    createdAt: new Date()
+  }
+  var newRecord = firebase.postData('alerts', alert);
+  this.alertKey = newRecord.name;
+
+  firebase.putData('devices/' + this.deviceKey + '/alerts/' + this.alertKey, true);
+
+  if (this.orgKey) {
+    firebase.putData('organizations/' + this.orgKey + '/alerts/' + this.alertKey, true);
+  }
+}

@@ -1,0 +1,40 @@
+var alertGeneratorModule = require('./alertGenerator');
+var firebaseModule = require('../../firebase/firebaseClient');
+var firebase = new firebaseModule.Firebase();
+
+var testSetup = function() {
+  var organization = {
+    name: "TestOrg"
+  };
+  var newOrg = firebase.postData('organizations', organization);
+  var orgKey = newOrg.name;
+  
+  var device = {
+    name: "TestDevice",
+    uid: "TestDevice"
+  };
+  var newDevice = firebase.postData('devices', device);
+  var deviceKey = newDevice.name; 
+  
+  return { orgKey: orgKey, deviceKey: deviceKey }
+};
+
+var runTest = function(params) {
+  var orgKey = params.orgKey;
+  var deviceKey = params.deviceKey;
+  var packet = {
+    event: "BYPASS",
+    key: deviceKey,
+    record: {
+      organization: orgKey
+    }
+  };
+  
+  new alertGeneratorModule.AlertGenerator(packet);
+  
+  
+  
+};
+
+var setupParams = testSetup();
+runTest(setupParams);

@@ -1,5 +1,37 @@
+var momentlib = require("../moment/moment");
+
 var secondsAgo = function(ago) {
   var d = new Date();
   var o = new Date(ago);
   return (d - o) / 1000;
+};
+
+var daysAgo = function(ago) {
+  return secondsAgo(ago) / 86400;
+};
+
+var offSets = {
+  PT: -8,
+  MT: -7,
+  CT: -6,
+  ET: -5,
+  GMT: 0
+};
+
+var startOfNight = 20;
+var startOfDay = 4;
+
+var now = function(timeZone) {
+  var offset = offsets[timeZone];
+  return momentlib.moment().utcOffset(offset);  
+};
+
+var isItNight = function(timeZone) {
+  var nowHour = now(timeZone).hour();
+  return nowHour > startOfNight || nowHour < startOfDay;
+};
+
+var isItWeekend = function(timeZone) {
+  var nowDay = now(timeZone).day();
+  return nowDay !== 0 && nowDay !== 6;
 };

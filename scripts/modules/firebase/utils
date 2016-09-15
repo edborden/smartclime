@@ -1,0 +1,10 @@
+var objectToArray = function(object) {
+  var array = [];
+  var keys = Object.keys(object);
+  keys.forEach(function(key) {
+    var record = object[key];
+    record.id = key;
+    array.push(record);
+  });
+  return array;
+}
