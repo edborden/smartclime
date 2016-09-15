@@ -100,9 +100,37 @@ Firebase.prototype.queryData = function(key, query) {
 
   req.url = this.projectName + key + ".json";
   req.url = req.url + "?auth=" + this.secret;
-  req.url = req.url + "&orderBy=%22" + query.orderBy + "%22";
-  req.url = req.url + "&equalTo=%22" + query.equalTo + "%22";
+  if (query.orderBy) {
+  	req.url = req.url + "&orderBy=%22" + query.orderBy + "%22";
+  }
+  if (query.equalTo) {
+  	req.url = req.url + "&equalTo=%22" + query.equalTo + "%22";
+  }
+  if (query.limitToLast) {
+  	req.url = req.url + "&limitToLast=" + query.limitToLast;
+  }
+  if (query.limitToFirst) {
+  	req.url = req.url + "&limitToFirst" + query.limitToFirst;
+  }
   req.method = "GET";
+  
+  var response  = this.httpClient.callApi(req);
+  if (response.timeout) {
+    throw {
+      errorCode: "Invocation_Error",
+      errorDetail: "timeout"
+    }
+  }
+  
+  return response;
+};
+
+Firebase.prototype.deleteData = function(key) {
+  var req = {};
+
+  req.url = this.projectName + key + ".json";
+  req.url = req.url + "?auth=" + this.secret;
+  req.method = "DELETE";
   
   var response  = this.httpClient.callApi(req);
   if (response.timeout) {
