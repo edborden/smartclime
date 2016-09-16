@@ -125,6 +125,7 @@ Firebase.prototype.queryData = function(key, query) {
     req.url = req.url + "&limitToFirst" + query.limitToFirst;
   }
   req.method = "GET";
+  log.debug(req.url);
   
   var response  = this.httpClient.callApi(req);
   if (response.timeout) {

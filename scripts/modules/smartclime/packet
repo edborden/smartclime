@@ -8,9 +8,9 @@ function Packet(packet) {
   
   //this.lengthSubstring = packet.substring(4,6);
   
-  this.deviceSubstring = packet.substring(6,10);
-  this.CDMAdevice = this.deviceSubstring === "0000";
-  this.GSMdevice = this.deviceSubstring === "0001";
+  this.deviceSubstring = packet.substring(9,10);
+  this.CDMAdevice = this.deviceSubstring === "0";
+  this.GSMdevice = this.deviceSubstring === "1";
 
   if (this.GSMdevice) {
     this.hardwareId = packet.substring(22,26);

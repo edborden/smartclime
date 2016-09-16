@@ -7,24 +7,39 @@ function AlertGenerator(packet) {
   this.packet = packet;
   this.deviceKey = packet.key;
   this.orgKey = packet.record.organization;
-  if (packet.event === "Bypass") {
-    var records = firebase.queryData('alerts', {
-      orderBy: 'device',
-      equalTo: this.deviceKey,
-      limitToLast: 3
-    });
-    records = firebaseUtils.objectToArray(records);
-    var filteredRecords = records.filter(function(record) {
-      return record.alertType === 0;
-    });
-    filteredRecords = filteredRecords.filter(function(record) {
-      return timeutils.daysAgo(record.createdAt) < 1;
-    });
-    if (filteredRecords.length === 0) {
-      this.generateAlertFromType(0);
+
+  if (packet.event === "Bypass" || packet.event === "Override") {
+	this.handleAlert(packet.event);
+  }
+
+  if (packet.event === "Run") {
+    var organization = firebase.getData('organizations/' + this.orgKey);
+    if (organization.customerType === "Commercial") {
+      var timeZone = organization.timeZone;
+      if (timeUtils.isItNight(timeZone) || timeUtils.isItWeekend(timeZone)) {
+      	this.handleAlert(packet.event);
+      }
     }
   }
-}
+};
+
+AlertGenerator.prototype.handleAlert = function(alertType) {
+  var records = firebase.queryData('alerts', {
+    orderBy: 'device',
+    equalTo: this.deviceKey,
+    limitToLast: 3
+  });
+  records = firebaseUtils.objectToArray(records);
+  var filteredRecords = records.filter(function(record) {
+    return record.alertType === alertType;
+  });
+  filteredRecords = filteredRecords.filter(function(record) {
+    return timeUtils.daysAgo(record.createdAt) < 2;
+  });
+  if (filteredRecords.length === 0) {
+    this.generateAlertFromType(alertType);
+  }  
+};
 
 AlertGenerator.prototype.generateAlertFromType = function(type) {
   var alert = {
@@ -41,4 +56,4 @@ AlertGenerator.prototype.generateAlertFromType = function(type) {
   if (this.orgKey) {
     firebase.putData('organizations/' + this.orgKey + '/alerts/' + this.alertKey, true);
   }
-}
+};

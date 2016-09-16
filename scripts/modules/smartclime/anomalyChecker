@@ -22,7 +22,7 @@ AnomalyChecker.prototype.check = function() {
 
     var time = new Date();
     var mailBody = "An anomalous packet was detected at " + time + ":<br>";
-    mailBody += bodyPacket + "<br>" + this.anomalyMessage;
+    mailBody += this.packet.packet + "<br>" + this.anomalyMessage;
     var emailConfig = {
       "fromName": "SmartClime Admin Alert",
       "subject": "Anomalous SmartClime Packet Alert",
