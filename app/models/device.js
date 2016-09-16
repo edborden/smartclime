@@ -3,7 +3,8 @@ import DS from 'ember-data';
 const {
   Model,
   attr,
-  belongsTo
+  belongsTo,
+  hasMany
 } = DS;
 
 export default Model.extend({
@@ -17,6 +18,7 @@ export default Model.extend({
   updatedAt: attr('string'),
 
   // associations
-  organization: belongsTo('organization')
+  organization: belongsTo('organization'),
+  alerts: hasMany('alert')
 
 });

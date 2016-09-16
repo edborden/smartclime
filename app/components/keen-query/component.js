@@ -52,7 +52,6 @@ export default Component.extend({
           chart.error(err.message);
         } else {
           // Handle the response
-          console.log(this,res);
           res.result.forEach(function(item) {
             let minutes = item.result / 60;
             let rounded = Math.round(minutes);
