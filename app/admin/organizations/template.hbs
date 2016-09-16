@@ -5,7 +5,7 @@
     {{#collapsible-item title=organization.name badge=organization.devices.length}}
       <div class="row">
         <div class="col m6">
-          <div class="org-detail">{{organization.customerTypeHuman}} ({{organization.timeZoneHuman}})</div>
+          <div class="org-detail">{{organization.customerType}} ({{organization.timeZone}})</div>
           {{user-adder organization=organization}}
           {{#unless (or organization.devices organization.users)}}
             {{md-btn text="Delete Org" icon="delete" color="red" click=(route-action 'destroyOrganization' organization)}}

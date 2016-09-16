@@ -35,11 +35,34 @@ export default Component.extend({
   },
 
   _renderChart() {
+
+    let client = this.get('keen').get('client');
+
     Keen.ready(() => {
-      let query = this._query();
       let chartOptions = this.chartOptions();
-      this.get('keen').get('client').draw(query, this.element, chartOptions);
-    });    
+      let query = this._query();
+      let chart = new Keen.Dataviz()
+        .el(this.element)
+        .attributes(chartOptions)
+        .prepare(); // start spinner
+
+      client.run(query, function(err, res) {
+        if (err) {
+          // Display the API error
+          chart.error(err.message);
+        } else {
+          // Handle the response
+          res.result.forEach(function(item) {
+            let minutes = item.result / 60;
+            let rounded = Math.round(minutes);
+            item.result = rounded;
+          });
+          chart
+            .parseRequest(this)
+            .render();
+        }
+      });  
+    });
   },
 
   chartOptions() {
