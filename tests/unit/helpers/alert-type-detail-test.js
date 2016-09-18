@@ -11,7 +11,7 @@ import {
 describe('AlertTypeDetailHelper', function() {
   // Replace this with your real tests.
   it('works', function() {
-    let result = alertTypeDetail(42);
+    let result = alertTypeDetail('Bypass');
     expect(result).to.be.ok;
   });
 });
