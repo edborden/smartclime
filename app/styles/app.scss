@@ -8,6 +8,7 @@
 @import "eula-accepter";
 @import "device-card";
 @import "collapsible-item";
+@import "ranged-pie";
 
 .logo { 
   height: 50px;
@@ -24,6 +25,10 @@ body {
 main {
   flex: 1 0 auto;
   min-height: 100vh;
+}
+
+.bottom-button-margin {
+  margin-bottom: 8px
 }
 
 .protest { 

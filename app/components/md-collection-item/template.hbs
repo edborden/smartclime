@@ -1,0 +1,8 @@
+<div>
+  {{yield}}
+  {{#if collectionItemAction}}
+    <a href="#!" class="secondary-content" {{action collectionItemAction}}>
+      {{i-mdi icon=icon}}
+    </a>
+  {{/if}}
+</div>

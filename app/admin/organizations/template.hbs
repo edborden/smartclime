@@ -6,13 +6,14 @@
       <div class="row">
         <div class="col m6">
           <div class="org-detail">{{organization.customerType}} ({{organization.timeZone}})</div>
-          {{user-adder organization=organization}}
+          {{user-adder organization=organization class='bottom-button-margin'}}
           {{#unless (or organization.devices organization.users)}}
-            {{md-btn text="Delete Org" icon="delete" color="red" click=(route-action 'destroyOrganization' organization)}}
+            {{md-btn class='bottom-button-margin' text="Delete Org" icon="delete" color="red" click=(route-action 'destroyOrganization' organization)}}
           {{/unless}}
+          {{organization-adder organization=organization large=false icon='pencil' text='Edit' color=null class='bottom-button-margin'}}
           {{#if organization.devices}}
             {{#link-to 'dashboard' organization}}
-              {{md-btn text='Dashboard' icon='chart-pie'}}
+              {{md-btn text='Dashboard' icon='chart-pie' class='bottom-button-margin'}}
             {{/link-to}}
           {{/if}}
         </div>

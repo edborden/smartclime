@@ -1,0 +1,14 @@
+{{#if (and model model.isFulfilled)}}
+  <div class="row">
+    <div class="divider"></div>
+    <h5>Alerts</h5>
+    {{#md-collection}}
+      {{#each model as |alert|}}
+        {{#md-collection-item collectionItemAction=(if canRemove (action 'removeAlert' alert)) icon='close'}}
+          {{alert.device.name}} ({{alert.device.hardwareId}}) - {{alertTypeDetail alert.alertType}} {{moment-from-now alert.createdAt}}
+        {{/md-collection-item}}
+      {{/each}}
+    {{/md-collection}}
+    <div class="divider"></div>
+  </div>
+{{/if}}

@@ -53,7 +53,7 @@
     "ember-sinon": "0.5.1",
     "ember-truth-helpers": "1.2.0",
     "ember-validations": "2.0.0-alpha.4",
-    "emberfire": "firebase/emberfire#ts-write-waiters",
+    "emberfire": "firebase/emberfire#master",
     "emberx-select": "2.2.0",
     "eslint-plugin-ember-suave": "^0.1.0",
     "loader.js": "^4.0.1",

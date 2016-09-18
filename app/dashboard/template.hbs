@@ -8,16 +8,7 @@
     {{keen-query waitFor=model.devices filterName="device.hardwareId" filterValue=(map-by "hardwareId" model.devices) title="This Month To Date" timeframe="this_1_months"}}
   </div>
 </div>
-{{#if model.alerts}}
-  <div class="row">
-    <div class="divider"></div>
-    <h5>Alerts</h5>
-    {{#each model.alerts as |alert|}}
-      {{alert.device.name}} - {{alert.alertType}}
-    {{/each}}
-    <div class="divider"></div>
-  </div>
-{{/if}}
+{{alerts-bar model=model.alerts canRemove=true}}
 <div class="row">
   {{#each (sort-by "name" model.devices) as |device|}}
     {{device-card device=device}}
