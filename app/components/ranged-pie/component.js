@@ -8,6 +8,7 @@ const {
 export default Component.extend(ParentComponentSupport, {
 
   // attributes
+  classNames: ['ranged-pie'],
   start: null,
   end: null,
   setting: false,
