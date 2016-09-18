@@ -13,13 +13,24 @@ export default MdBtn.extend(EmberValidations, {
   color: 'red',
   modal: false,
   name: null,
-  customerType: '0',
-  timeZone: '0',
+  customerType: 'Residential',
+  timeZone: 'PT',
+  icon: 'plus',
+  organization: null,
 
   // services
   store: service(),
 
   // events
+  init() {
+    this._super();
+    let organization = this.get('organization');
+    if (organization) {
+      this.set('customerType', organization.get('customerType'));
+      this.set('timeZone', organization.get('timeZone'));
+      this.set('name', organization.get('name'));
+    }
+  },
   click() {
     this.set('modal', true);
   },
@@ -31,7 +42,12 @@ export default MdBtn.extend(EmberValidations, {
     },
     async save() {
       let properties = this.getProperties('name', 'timeZone', 'customerType');
-      let organization = this.get('store').createRecord('organization', properties);
+      let organization = this.get('organization');
+      if (organization) {
+        organization.setProperties(properties);
+      } else {
+        organization = this.get('store').createRecord('organization', properties);
+      }
       await organization.save();
       this.send('toggleModal');
     }

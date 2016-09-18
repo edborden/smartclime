@@ -1,4 +1,4 @@
-{{i-mdi icon="plus"}}
+{{text}}{{i-mdi icon=icon class=(if left 'left' 'right')}}
 
 {{#if modal}}
   {{#modal-dialog close="toggleModal"
@@ -6,14 +6,14 @@
     translucentOverlay=true}}
 
     {{md-input placeholder="Name" value=name}}
-    {{md-radio group=(hash 0='Residential' 1='Commercial') groupValue=customerType}}
+    {{md-radio group=(hash Residential='Residential' Commercial='Commercial') groupValue=customerType}}
     Time Zone:
     {{#x-select value=timeZone classNames="browser-default"}}
-      {{#each-in (hash 0='PT' 1='MT' 2='CT' 3='ET') as |key value|}}
-        {{#x-option value=key}}
+      {{#each (array 'PT' 'MT' 'CT' 'ET' 'GMT') as |value|}}
+        {{#x-option value=value}}
           {{value}}
         {{/x-option}}
-      {{/each-in}}
+      {{/each}}
     {{/x-select}}
 
     <p>{{md-btn action='save' icon='check' disabled=isInvalid}}</p>
