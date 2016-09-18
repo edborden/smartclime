@@ -45,7 +45,7 @@ AlertGenerator.prototype.generateAlertFromType = function(type) {
   var alert = {
     organization: this.orgKey,
     device: this.deviceKey,
-    alertType: 0,
+    alertType: type,
     createdAt: new Date()
   }
   var newRecord = firebase.postData('alerts', alert);
