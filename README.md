@@ -50,6 +50,21 @@ Continuous Integration (CI) is managed via [CircleCI](http://circleci.com). Upda
 * Runs tests
 * Deploys to Firebase
 
+## System Administration
+
+### Admin Account
+
+The dashboard@smartclime.com google account has ownership of the Firebase accounts and the Keen.io account. Once logged into dashboard@smartclime.com, any of those services can be managed directly. Contact Ed Borden or Cari Bortfield for login info.
+
+### Admin Role in SmartClime Dashboard
+
+The "Admin" role within the SmartClime dashboard allows for access to areas and functions for:
+* Provisioning new devices into an organization
+* Creating/Editing/Delete organizations
+* Creating/Editing/Deleting users in an organization
+
+The "Admin" role is automatically applied to all users within the SmartClime organization.
+
 ## Further Reading / Useful Links
 
 * [ember.js](http://emberjs.com/)
