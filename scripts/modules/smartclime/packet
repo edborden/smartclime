@@ -1,7 +1,7 @@
 var firebaseModule = require('../../modules/firebase/firebaseClient');
 var firebase = new firebaseModule.Firebase();
 var anomalyCheckerModule = require('./anomalyChecker');
-var alertGeneratorModule = require('./alertGenerator/alertGenerator');
+var alertGeneratorModule = require('./alertGenerator');
 
 function Packet(packet) {
   this.packet = packet;
@@ -31,7 +31,11 @@ function Packet(packet) {
     this.device();
     this.recordKeen();
     this.updateDevice();
-    new alertGeneratorModule.AlertGenerator(this);
+    
+    if (this.record.organization) {
+      new alertGeneratorModule.AlertGenerator(this);
+    }
+
   }
   
 }
