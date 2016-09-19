@@ -7,6 +7,9 @@
     },
     "devices" : {
       ".indexOn": ["hardwareId","isNew"]
+    },
+    "alerts" : {
+      ".indexOn": "device"
     }
   }
 }
