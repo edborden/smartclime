@@ -2,7 +2,52 @@
 
 Dashboard application for Smartclime devices.
 
-## Prerequisites
+## System Architecture
+
+### Backend business logic for raw telemetry data
+
+The server-side scripts are contained in \scripts. These are hosted by Scriptr.io which manages all incoming device data from the SmartClime systems.  These scripts handle all of the package parsing and interface to the databases.
+
+### Real-time database
+
+Customer data, business and relationship associations, and current telemetry data are stored in a Firebase managed NoSQL database.
+
+### Analytics
+
+Historical analytics are performed through a managed service called Keen.io. Event data is logged through the backend scripts to Keen, and queries are performed on the fly from the front-end on demand via Keen's web API.
+
+### Front-end
+
+The front-end application is based on Ember.JS, which is an open-source web framework ('single page application' or Javascript MVVM). Ember provides build tools through a CLI, a templating engine, an internal data model, and a web component framework supported by community add-ons.
+
+* [ember.js](http://emberjs.com/)
+* [ember-cli](http://ember-cli.com/)
+* Development Browser Extensions
+  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+
+### Static Hosting
+
+Static files are hosted on [Firebase](http://firebase.google.com). Firebase configuration is contained in `firebase.json`.
+
+## Application-level System Administration
+
+### Admin Account
+
+The dashboard@smartclime.com google account has ownership of the Firebase, Scriptr.io, and Keen.io accounts. Through that gmail account any of those services can be managed directly. Contact Ed Borden or Cari Bortfield for login info.
+
+### Admin Role in SmartClime Dashboard
+
+The "Admin" role within the SmartClime dashboard allows for access to areas and functions for:
+* Provisioning new devices into an organization
+* Creating/Editing/Delete organizations
+* Creating/Editing/Deleting users in an organization
+
+The "Admin" role is automatically applied to all users within the SmartClime organization.
+
+## Ember.JS Development Instructions
+
+### Prerequisites
 
 You will need the following things properly installed on your computer.
 
@@ -12,14 +57,14 @@ You will need the following things properly installed on your computer.
 * [Ember CLI](http://ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
 
-## Installation
+### Installation
 
 * `git clone <repository-url>` this repository
 * change into the new directory
 * `npm install`
 * `bower install`
 
-## Running / Development
+### Running / Development
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
@@ -31,10 +76,6 @@ You will need the following things properly installed on your computer.
 * `ember test --server`
 
 ## Deploying
-
-### Hosting
-
-Static files are hosted on [Firebase](http://firebase.google.com). Firebase configuration is contained in `firebase.json`.
 
 ### Environments
 
@@ -49,27 +90,3 @@ Continuous Integration (CI) is managed via [CircleCI](http://circleci.com). Upda
 * Does a fresh build
 * Runs tests
 * Deploys to Firebase
-
-## System Administration
-
-### Admin Account
-
-The dashboard@smartclime.com google account has ownership of the Firebase accounts and the Keen.io account. Once logged into dashboard@smartclime.com, any of those services can be managed directly. Contact Ed Borden or Cari Bortfield for login info.
-
-### Admin Role in SmartClime Dashboard
-
-The "Admin" role within the SmartClime dashboard allows for access to areas and functions for:
-* Provisioning new devices into an organization
-* Creating/Editing/Delete organizations
-* Creating/Editing/Deleting users in an organization
-
-The "Admin" role is automatically applied to all users within the SmartClime organization.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
