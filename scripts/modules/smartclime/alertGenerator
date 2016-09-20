@@ -12,12 +12,12 @@ function AlertGenerator(packet) {
 	this.handleAlert(packet.event);
   }
 
-  if (packet.event === "Run") {
+  if (packet.event === "Run" || packet.event === "Save") {
     var organization = firebase.getData('organizations/' + this.orgKey);
     if (organization.customerType === "Commercial") {
       var timeZone = organization.timeZone;
       if (timeUtils.isItNight(timeZone) || timeUtils.isItWeekend(timeZone)) {
-      	this.handleAlert(packet.event);
+      	this.handleAlert("Hours");
       }
     }
   }
