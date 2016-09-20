@@ -36,6 +36,10 @@ Static files are hosted on [Firebase](http://firebase.google.com). Firebase conf
 
 The dashboard@smartclime.com google account has ownership of the Firebase, Scriptr.io, and Keen.io accounts. Through that gmail account any of those services can be managed directly. Contact Ed Borden or Cari Bortfield for login info.
 
+### Github Admin
+
+Access to this repository can be via individual Github accounts (contact Ed Borden to be added) or via an administrative account linked to smartclime@dashboard.com (contact Ed Borden for credentials).
+
 ### Admin Role in SmartClime Dashboard
 
 The "Admin" role within the SmartClime dashboard allows for access to areas and functions for:
@@ -44,6 +48,16 @@ The "Admin" role within the SmartClime dashboard allows for access to areas and 
 * Creating/Editing/Deleting users in an organization
 
 The "Admin" role is automatically applied to all users within the SmartClime organization.
+
+### Alerts
+
+Alerts are created for the following conditions, limited to 1 per type, per device, in any 2 day period:
+* Enter 'Override' or 'Bypass' at any time.
+* For a device owned by an Organization with a 'Commercial' customer type, enter 'Run' or 'Save' between the hours of 8PM - 4AM, or anytime on Saturday or Sunday. This does take into account the time zone setting for the organization.
+
+Current limitations of this system:
+* For the after hours alert, if the device goes into 'Run' or 'Save' during normal hours, but then runs all night, the system doesn't check for that.
+* Hours settings are not yet configurable, so for some type of business that might run during the weekends but not at night, you would be getting false alerts.
 
 ## Ember.JS Development Instructions
 
