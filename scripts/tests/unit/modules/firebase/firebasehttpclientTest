@@ -1,0 +1,7 @@
+var httpClient = require("../../../../modules/firebase/firebasehttpclient");
+httpClient = new httpClient.HttpClient();
+var req = {};
+req.method = "GET";
+req.url = "https://smartclime-70e4f.firebaseio.com/alerts.json?auth=dEk4KWl8TIZ4onGqL6jIMcarRGpKwhQ6vTw4FOgH&orderBy=%22device%22&equalTo=%22-KNEWIrn-n-pDVQp0x3R%22&limitToLast=3";
+var response  = httpClient.callApi(req);
+return response;
