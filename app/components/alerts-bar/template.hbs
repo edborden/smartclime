@@ -3,7 +3,7 @@
     <div class="divider"></div>
     <h5>Alerts</h5>
     {{#md-collection}}
-      {{#each model as |alert|}}
+      {{#each (sort-by "createdAt:desc" model) as |alert|}}
         {{#md-collection-item collectionItemAction=(if canRemove (action 'removeAlert' alert)) icon='close'}}
           {{alert.device.name}} ({{alert.device.hardwareId}}) - {{alertTypeDetail alert.alertType}} {{moment-from-now alert.createdAt}}
         {{/md-collection-item}}

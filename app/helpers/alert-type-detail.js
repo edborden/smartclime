@@ -6,8 +6,8 @@ export function alertTypeDetail(alertType) {
       return 'Bypass mode entered';
     case 'Override':
       return 'Override mode entered'
-    case 'Run':
-      return 'Run mode entered during off hours'
+    case 'Hours':
+      return 'Running during off hours'
   }
 }
 
