@@ -1,0 +1,11 @@
+var timeModule = require('../../../../modules/utils/time');
+
+var test1 = function() {
+  return timeModule.isItNight('ET');
+};
+
+var test2 = function() {
+  return timeModule.isItWeekend('GMT');
+};
+
+return [test1(),test2()];

@@ -25,6 +25,9 @@ function Packet(packet) {
   
   this.validEvent = this.event !== "Maintenance" && this.event != null && this.event != undefined;
   
+}
+
+Packet.prototype.process = function() {
   var anomalyChecker = new anomalyCheckerModule.AnomalyChecker(this);
   this.anomaly = anomalyChecker.anomaly;
   if (!this.anomaly && this.validEvent) {
@@ -37,7 +40,6 @@ function Packet(packet) {
     }
 
   }
-  
 }
 
 Packet.prototype.device = function() {

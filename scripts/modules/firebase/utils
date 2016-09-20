@@ -1,4 +1,7 @@
 var objectToArray = function(object) {
+  if (object === null) {
+    object = {};
+  }
   var array = [];
   var keys = Object.keys(object);
   keys.forEach(function(key) {

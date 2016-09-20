@@ -22,7 +22,7 @@ var startOfNight = 20;
 var startOfDay = 4;
 
 var now = function(timeZone) {
-  var offset = offsets[timeZone];
+  var offset = offSets[timeZone];
   return momentlib.moment().utcOffset(offset);  
 };
 
@@ -33,5 +33,5 @@ var isItNight = function(timeZone) {
 
 var isItWeekend = function(timeZone) {
   var nowDay = now(timeZone).day();
-  return nowDay !== 0 && nowDay !== 6;
+  return nowDay === 0 || nowDay === 6;
 };

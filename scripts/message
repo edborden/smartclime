@@ -4,6 +4,6 @@ log.debug(request.rawBody);
 
 var bodyPacket = JSON.parse(request.rawBody).packet;
 var packetModule = require('./modules/smartclime/packet')
-new packetModule.Packet(bodyPacket);
+new packetModule.Packet(bodyPacket).process();
 
 return null;
