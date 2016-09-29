@@ -1,0 +1,13 @@
+{{#if (is-array group)}}
+  {{#each group as |option|}}
+    <p>
+      {{md-input "radio" option=option label=option changeset=changeset property=property}}
+    </p>
+  {{/each}}
+{{else}}
+  {{#each-in group as |key value|}}
+    <p>
+      {{md-input "radio" option=key label=value changeset=changeset property=property}}
+    </p>
+  {{/each-in}}
+{{/if}}
