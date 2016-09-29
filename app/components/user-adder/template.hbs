@@ -5,7 +5,7 @@
                   targetAttachment="center"
                   translucentOverlay=true}}
     <p>{{device.hardwareId}}</p>
-    {{md-input required=true placeholder="Email" value=email isValid=isValid}}
+    {{md-input required=true placeholder="Email" changeset=this property="email"}}
     <p>{{md-btn action='save' icon='check' disabled=isInvalid}}</p>
   {{/modal-dialog}}
 {{/if}}

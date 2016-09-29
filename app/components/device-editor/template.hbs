@@ -11,7 +11,7 @@
   {{#modal-dialog close="toggleModal"
                   targetAttachment="center"
                   translucentOverlay=true}}
-    {{md-input placeholder="New Name" value=deviceName}}
+    {{md-input placeholder="New Name" changeset=this property="deviceName"}}
     <p>{{md-btn action='edit' disabled=isInvalid icon='check'}}</p>
   {{/modal-dialog}}
 {{/if}}

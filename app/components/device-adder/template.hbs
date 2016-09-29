@@ -14,7 +14,7 @@
                   targetAttachment="center"
                   translucentOverlay=true}}
     <p>{{device.hardwareId}}</p>
-    {{md-input placeholder="Name" value=deviceName}}
+    {{md-input placeholder="Name" changeset=this property="deviceName"}}
     {{#x-select value=deviceOrganization classNames="browser-default"}}
       <option>Select organization</option>
       {{#each organizations as |organization|}}

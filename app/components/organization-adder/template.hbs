@@ -5,8 +5,8 @@
     targetAttachment="center"
     translucentOverlay=true}}
 
-    {{md-input placeholder="Name" value=name}}
-    {{md-radio group=(hash Residential='Residential' Commercial='Commercial') groupValue=customerType}}
+    {{md-input placeholder="Name" changeset=this property="name"}}
+    {{radio-group group=(hash Residential='Residential' Commercial='Commercial') changeset=this property="customerType"}}
     Time Zone:
     {{#x-select value=timeZone classNames="browser-default"}}
       {{#each (array 'PT' 'MT' 'CT' 'ET' 'GMT') as |value|}}
