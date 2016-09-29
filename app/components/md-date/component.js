@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import MaterializeInput from 'smartclime/components/md-input/component';
 
 const {
-  run: { bind }
+  run: { bind },
+  Component
 } = Ember;
 
-export default MaterializeInput.extend({
+export default Component.extend({
 
   selectMonths: true,
   selectYears: 2,

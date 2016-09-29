@@ -16,8 +16,8 @@ const MdInputComponent = Component.extend({
   },
 
   actions: {
-    validateProperty(changeset, property) {
-      //return changeset.validate(property);
+    validateProperty() { // changeset, property
+      // return changeset.validate(property);
       return;
     }
   },
