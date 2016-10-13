@@ -30,7 +30,7 @@ export default MdBtn.extend(EmberValidations, CheckUser, {
       this.set('modal', false);
     },
     async save() {
-      let email = this.get('email');
+      let email = this.get('email').toLowerCase();
       let organization = this.get('organization');
       await this._checkIfUserExists(email);
       let users = this.get('foundUsers');
